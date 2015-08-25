@@ -51,14 +51,12 @@ Articles:
 
 http://www.larces.uece.br/~gesad/wp-content/uploads/2015/04/iceis2015_tcg.pdf
 	
-	- LoTuS-TCG: Uma ferramenta para geração e seleção de casos de teste Funcionais e
-Estatísticos:
+	- LoTuS-TCG: Uma ferramenta para geração e seleção de casos de teste Funcionais e Estatísticos:
 
 http://www.larces.uece.br/~gesad/wp-content/uploads/2015/04/sast2014.pdf
 
 Monograph:
 
-	- TCG: Uma ferramenta para geração e seleção de casos de testes Funcionais e 
-Estatísticos:
+	- TCG: Uma ferramenta para geração e seleção de casos de testes Funcionais e Estatísticos:
 
 http://www.larces.uece.br/~gesad/wp-content/uploads/2015/08/Monografia-Especializa%C3%A7%C3%A3o-Laryssa-Lima-Muniz.pdf
