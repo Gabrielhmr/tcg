@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox fx:id="mMainVBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="518.0" prefWidth="800.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.uece.lotus.tcg.gui.MainWindowController">
+    <children>
+        <ScrollPane fx:id="mScrollPane" fitToHeight="true" fitToWidth="true" pannable="true" prefHeight="428.0" prefWidth="800.0" VBox.vgrow="ALWAYS">
+            <VBox.margin>
+                <Insets />
+            </VBox.margin>
+        </ScrollPane>
+        <TabPane fx:id="mTabPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="207.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+            <tabs>
+                <Tab closable="false" text="Configuration">
+                    <content>
+                        <HBox>
+                            <children>
+                                <VBox fx:id="mTabMainVBox" spacing="6.0" HBox.hgrow="ALWAYS">
+                                    <children>
+                                        <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" fillHeight="false" minHeight="0.0" spacing="6.0">
+                                            <padding>
+                                                <Insets bottom="5.0" right="5.0" />
+                                            </padding>
+                                            <children>
+                                                <Label contentDisplay="RIGHT" minHeight="0.0" text="Generator:" HBox.hgrow="ALWAYS" />
+                                                <ComboBox fx:id="mGenCombo" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickGeneratorCombobox" />
+                                                <Button fx:id="mButtonGenHelp" mnemonicParsing="false" onAction="#onClickGenHelpButton" text="?" />
+                                                <Label fx:id="mLabelGenParameter" contentDisplay="RIGHT" minHeight="0.0" text="Gen Parameter:" HBox.hgrow="ALWAYS">
+                                                    <padding>
+                                                        <Insets left="10.0" />
+                                                    </padding>
+                                                </Label>
+                                                <TextField fx:id="mTextFieldGenParam" maxWidth="1.7976931348623157E308" minHeight="0.0" HBox.hgrow="ALWAYS" />
+                                            </children>
+                                            <VBox.margin>
+                                                <Insets left="5.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox fx:id="mHboxSelector" alignment="CENTER_LEFT" fillHeight="false" minHeight="0.0" spacing="6.0">
+                                            <children>
+                                                <Label fx:id="mLabelSelector" contentDisplay="RIGHT" text="Selector:" />
+                                                <ComboBox fx:id="mComboSelector" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickSelectorCombobox" />
+                                                <Button fx:id="mButtonSelector" mnemonicParsing="false" onAction="#onClickSelectorButtonHelp" text="?" />
+                                                <Label fx:id="mLabelSelectorParameter" contentDisplay="RIGHT" text="Selector Parameter:">
+                                                    <padding>
+                                                        <Insets left="10.0" />
+                                                    </padding>
+                                                </Label>
+                                                <TextField fx:id="mTextFieldSelectorParam" HBox.hgrow="ALWAYS" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="5.0" right="5.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets left="5.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox fx:id="mHboxTestPurpose" alignment="CENTER" fillHeight="false" spacing="6.0">
+                                            <children>
+                                                <Label fx:id="mLabelTestPurpose" contentDisplay="RIGHT" text="Test Purpose:" />
+                                                <TextField fx:id="mTextFieldTestPurpose" maxWidth="1.7976931348623157E308" minHeight="0.0" HBox.hgrow="ALWAYS" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="5.0" right="5.0" />
+                                            </padding>
+                                            <VBox.margin>
+                                                <Insets left="5.0" />
+                                            </VBox.margin>
+                                        </HBox>
+                                        <HBox fx:id="mHboxTestPurpose1" alignment="CENTER" fillHeight="false" spacing="6.0">
+                                            <children>
+                                                <Separator opacity="0.0" prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
+                                                <Button fx:id="mButtonSubmit" alignment="CENTER_RIGHT" contentDisplay="RIGHT" mnemonicParsing="false" onAction="#onSubmit" text="Submit" />
+                                            </children>
+                                            <padding>
+                                                <Insets bottom="5.0" right="5.0" />
+                                            </padding>
+                                        </HBox>
+                                    </children>
+                                    <padding>
+                                        <Insets left="4.0" top="20.0" />
+                                    </padding>
+                                </VBox>
+                                <Separator maxHeight="100.0" minHeight="100.0" orientation="VERTICAL" prefHeight="100.0">
+                                    <HBox.margin>
+                                        <Insets bottom="20.0" top="20.0" />
+                                    </HBox.margin>
+                                </Separator>
+                                <VBox fx:id="mVboxStopConditions" spacing="6.0">
+                                    <cursor>
+                                        <Cursor fx:constant="DEFAULT" />
+                                    </cursor>
+                                    <children>
+                                        <Label text="Stop Conditions:">
+                                            <VBox.margin>
+                                                <Insets top="12.0" />
+                                            </VBox.margin>
+                                        </Label>
+                                    </children>
+                                    <HBox.margin>
+                                        <Insets left="10.0" />
+                                    </HBox.margin>
+                                </VBox>
+                            </children>
+                        </HBox>
+                    </content>
+                </Tab>
+            </tabs>
+        </TabPane>
+    </children>
+</VBox>

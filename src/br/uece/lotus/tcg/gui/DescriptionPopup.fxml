@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane minHeight="130.0" minWidth="406.0" style="-fx-background-color: #00A0CC;" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.uece.lotus.tcg.gui.DescriptionPopupController">
+    <content>
+        <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="400.0" spacing="6.0" style="-fx-background-color: #FFFFFF;">
+            <children>
+                <Label fx:id="mLabelTitle" text="Label">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TextArea fx:id="mTextAreaDesc" editable="false" prefHeight="50.0" prefWidth="150.0" style="-fx-border-width: 0; -fx-border-color: #FFFFFF; -fx-border-style: none;" wrapText="true" VBox.vgrow="ALWAYS">
+                    <font>
+                        <Font size="11.0" />
+                    </font>
+                </TextArea>
+                <HBox prefWidth="200.0" VBox.vgrow="NEVER">
+                    <children>
+                        <Separator halignment="LEFT" prefWidth="200.0" visible="false" HBox.hgrow="ALWAYS" />
+                        <Button fx:id="mButtonClose" cancelButton="true" defaultButton="true" mnemonicParsing="false" onAction="#onButtonCloseClick" text="Close" />
+                    </children>
+                </HBox>
+            </children>
+            <padding>
+                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+            </padding>
+        </VBox>
+    </content>
+</ScrollPane>

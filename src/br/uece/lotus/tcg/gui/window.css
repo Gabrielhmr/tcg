@@ -1,0 +1,12 @@
+/*
+ * Empty Stylesheet file.
+ */
+
+.mainFxmlClass {
+
+}
+
+.combo-box-popup .list-view .list-cell:filled:hover {
+    -fx-border-color: gray;
+    -fx-text-fill: rgba(0,0,255,1.0);
+}
