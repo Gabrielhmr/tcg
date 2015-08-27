@@ -11,7 +11,7 @@ The TCG tool (Test Case Generation) is a plugin for LoTuS modeling tool. LoTuS i
 
   Step 1: Download the lotus tool - http://jeri.larces.uece.br/lotus ;
   
-  Step 2: Add tcg in the extensions folder that is located in the root directory of the lotus tool ;
+  Step 2: Add o TCG plugin [tcg.jar] in the Extensions folder that is located in the root directory of the LoTuS tool;
   
   Step 3: Just launch the Lotus application (running java -jar lotus.jar) and TCG plugin will automatically load ;
 
