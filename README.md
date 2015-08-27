@@ -21,7 +21,7 @@ The TCG tool (Test Case Generation) is a plugin for LoTuS modeling tool. LoTuS i
 ----------------
 The plugin appears visually in the tool as the item "TCG" from the main menu. Where are found three sub-menus: Functional, Statistical and About. The functional contains the criteria for the generation and selection of cases of non-probabilistic tests and Statistical contains the criteria for the generation and selection of cases of probabilistic tests.
 
-Clicking the Statistical Functional or sub-menu to ferramentGa opens a new tab containing title as the project name - [TCG], by clicking on the tab it is possible to view the formal model and the settings panel.
+Clicking the Statistical Functional or sub-menu to tool opens a new tab containing title as the project name - [TCG], by clicking on the tab it is possible to view the formal model and the settings panel.
 
 
 4. Getting Started TCG
