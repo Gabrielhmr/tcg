@@ -34,7 +34,7 @@ public class PathFixedWeightsPrioritizer extends PathPrioritizer{
 
     @Override
     public String getDescription(){
-        return "No selector selected.";
+        return "This prioritizer defines the weight of the way through the sum of states and transitions. Ie the calculation is done by multiplying the number of transitions that reach the state rise with the number of transitions leaving the destination state, for the states that have two or more transitions assigns the weight 2 and the states that has only one transition assigns the weight 1.";
     }
 
     @Override

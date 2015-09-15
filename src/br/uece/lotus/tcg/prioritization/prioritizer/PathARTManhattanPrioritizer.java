@@ -32,7 +32,7 @@ public class PathARTManhattanPrioritizer extends PathAleatorioPrioritizer{
 
     @Override
     public String getDescription(){
-        return "No selector selected.";
+        return "The Manhattan distance is calculated using two arrays of size equal to the amount of template transitions. The function evaluates the distance between two test cases for each of these two arrays is associated with each position and this has the number 1 if the test case has symbolized by the transition position and 0 otherwise.";
     }
 
     @Override
