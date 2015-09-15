@@ -35,6 +35,7 @@ public class TestResultTab extends Tab{
     final String QUANTITY_STRING = "Total:";
     final String GENERATOR_STRING = "Generator:";
     final String SELECTOR_STRING = "Selector:";
+    final String PRIORITIZER_STRING = "Prioritizer:";
 
     protected VBox mMainVbox;
     protected HBox mInfoHbox;
@@ -44,9 +45,11 @@ public class TestResultTab extends Tab{
     protected TableColumn<TestResultTab.PathView,String> mGuardCollumn;
     protected TableColumn<TestResultTab.PathView,String> mLabelsCollumn;
     protected TableColumn<TestResultTab.PathView,Integer> mActionsCollumn;
+    protected TableColumn<TestResultTab.PathView,Integer> mWeightCollumn;
     protected Label mQuantLabel;
     protected Label mGeneratorLabel;
     protected Label mSelectorLabel;
+    protected Label mPrioritizerLabel;
     protected Label mStoppedLabel;
     protected Component mComponent;
     protected Button mButtonExportCSV;
@@ -62,12 +65,14 @@ public class TestResultTab extends Tab{
         if (pathSet.getPathList() != null){            
             for (List<Transition> path : pathSet.getPathList()){
                 PathView pv = new PathView(path);
+                pv.setPathWeight(pathSet.getPathWeightMap().get(path));
                 mPathList.add(pv);
             }
         }
 
         mGeneratorLabel = new Label(GENERATOR_STRING + " " + result.getGeneratorName());
         mSelectorLabel = new Label(SELECTOR_STRING + " " + result.getSelectorName());
+        mPrioritizerLabel = new Label(PRIORITIZER_STRING + " " + result.getPrioritizerName());
         mStoppedLabel = new Label();
 
         mButtonExportCSV = new Button("Export to CSV");
@@ -88,6 +93,7 @@ public class TestResultTab extends Tab{
             mPathActions = 0;
             mPathStates = "";
             mPathGuards = "";
+            mPathWeight = 0;
             
             boolean initialTransition = true;
             
@@ -116,7 +122,6 @@ public class TestResultTab extends Tab{
                 }
 
                 mPathProbability *= p;
-
             }
 
             if (path.size() > 0){
@@ -142,7 +147,8 @@ public class TestResultTab extends Tab{
         private String mPathStates;
         private String mPathGuards;
         private Double mPathProbability;
-
+        private Integer mPathWeight;
+        
         public List<Transition> mTransitionList;
 
         public String getPathLabels(){
@@ -164,6 +170,14 @@ public class TestResultTab extends Tab{
         public String getPathGuards(){
             return mPathGuards;
         }
+
+        public Integer getPathWeight() {
+            return mPathWeight;
+        }
+
+        public void setPathWeight(Integer mPathWeight) {
+            this.mPathWeight = mPathWeight;
+        }                
     }
 
     protected void initTable(){
@@ -172,6 +186,7 @@ public class TestResultTab extends Tab{
         mLabelsCollumn = new TableColumn<>("Test Cases");
         mActionsCollumn = new TableColumn<>("#Actions");
         mGuardCollumn = new TableColumn<>("Guard");
+        mWeightCollumn = new TableColumn<>("Weight");
 
         mStatesCollumn.setCellValueFactory(new PropertyValueFactory<>("pathStates"));
         mStatesCollumn.setPrefWidth(200);
@@ -184,11 +199,15 @@ public class TestResultTab extends Tab{
 
         mGuardCollumn.setCellValueFactory(new PropertyValueFactory<>("pathGuards"));
         mGuardCollumn.setPrefWidth(200);
+        
+        mWeightCollumn.setCellValueFactory(new PropertyValueFactory<>("pathWeight"));
+        mWeightCollumn.setPrefWidth(100);
 
         mTableView = new TableView();
         mTableView.setPrefHeight(500);
         mActionsCollumn.setSortType(TableColumn.SortType.DESCENDING);
-        mTableView.getColumns().addAll(mStatesCollumn, mLabelsCollumn, mActionsCollumn);
+        mWeightCollumn.setSortType(TableColumn.SortType.DESCENDING);
+        mTableView.getColumns().addAll(mStatesCollumn, mLabelsCollumn, mActionsCollumn, mWeightCollumn);
         mMainVbox.getChildren().add(mTableView);
     }
 
@@ -205,7 +224,7 @@ public class TestResultTab extends Tab{
 
         mQuantLabel = new Label(QUANTITY_STRING + " " + qtd.toString());
 
-        mInfoHbox.getChildren().addAll(mQuantLabel, mGeneratorLabel, mSelectorLabel, mStoppedLabel, mButtonExportCSV, mButtonExportXML);
+        mInfoHbox.getChildren().addAll(mQuantLabel, mGeneratorLabel, mSelectorLabel, mPrioritizerLabel, mStoppedLabel, mButtonExportCSV, mButtonExportXML);
         mMainVbox.getChildren().add(mInfoHbox);
 
         mTableView.setItems(mPathList);

@@ -108,4 +108,9 @@ public class PathGenShortest extends PathGenBreadthFirst{
     public boolean acceptSelector(){
         return false;
     }
+
+    @Override
+    public boolean acceptPrioritizer() {
+        return false;
+    }
 }

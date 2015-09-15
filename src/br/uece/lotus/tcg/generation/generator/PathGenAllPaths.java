@@ -47,7 +47,12 @@ public class PathGenAllPaths extends PathGenerator{
     public boolean acceptPurpose(){
         return true;
     }
-
+    
+    @Override
+    public boolean acceptPrioritizer() {
+        return true;
+    }
+    
     @Override
     protected PathSet generate(LtsInfo lts, TestBundle bundle){
         

@@ -117,4 +117,9 @@ public class PathGenAllFreeLoop extends PathGenDepthFirst{
     public boolean acceptSelector(){
         return true;
     }
+
+    @Override
+    public boolean acceptPrioritizer() {
+        return true;
+    }
 }

@@ -3,13 +3,16 @@ package br.uece.lotus.tcg.struct;
 import br.uece.lotus.State;
 import br.uece.lotus.Transition;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class PathSet{
 
     protected Collection<List<Transition>> mPathList;
+    protected Map<List<Transition>, Integer> mPathWeightMap;
     protected Set<Transition> mVisitedTransitions;
     protected Set<State> mVisitedStates;
     protected Set<List<Transition>> mCyclesListTransitions;
@@ -21,8 +24,17 @@ public class PathSet{
         mVisitedTransitions = new HashSet<>();
         mCyclesListTransitions = new HashSet<>();
         mCycleListStates = new HashSet<>();
+        mPathWeightMap = new HashMap<>();
+    }
+    
+    public void addPathWeight(List<Transition> path, Integer weight){        
+        mPathWeightMap.put(path, weight);
     }
 
+    public Map<List<Transition>, Integer> getPathWeightMap() {
+        return mPathWeightMap;
+    }
+    
     public int getPathsCount(){
         return mPathList.size();
     }

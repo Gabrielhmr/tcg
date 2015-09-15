@@ -27,10 +27,14 @@ public class GenerationManager{
         return mGeneratorSet.getGeneratorDescription(name);
     }
 
+    public boolean acceptPrioritizer(String name){
+        return mGeneratorSet.acceptPrioritizer(name);
+    }
+    
     public boolean acceptSelector(String name){
         return mGeneratorSet.acceptSelector(name);
     }
-
+        
     public boolean acceptPurpose(String name){
         return mGeneratorSet.acceptPurpose(name);
     }

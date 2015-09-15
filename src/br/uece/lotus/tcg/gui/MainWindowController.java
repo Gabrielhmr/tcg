@@ -5,6 +5,8 @@ import br.uece.lotus.tcg.TestBundleBuilder;
 import br.uece.lotus.tcg.generation.GenerationManager;
 import br.uece.lotus.tcg.generation.GeneratorSet;
 import br.uece.lotus.tcg.generation.StatisticalGeneratorSet;
+import br.uece.lotus.tcg.prioritization.PrioritizerSet;
+import br.uece.lotus.tcg.prioritization.PriorizationManager;
 import br.uece.lotus.tcg.purpose.TestPurposeParser;
 import br.uece.lotus.tcg.purpose.TestPurposeSelector;
 import br.uece.lotus.tcg.purpose.TestPurposeSuite;
@@ -60,10 +62,10 @@ public class MainWindowController implements Initializable{
 
     @FXML
     private Label mLabelTestPurpose;
-
+    
     @FXML
     private Button mButtonSelector;
-
+    
     @FXML
     private VBox mVboxStopConditions;
 
@@ -75,7 +77,10 @@ public class MainWindowController implements Initializable{
 
     @FXML
     private ComboBox<String> mComboSelector;
-
+    
+    @FXML
+    private ComboBox<String> mComboPrioritizer;
+        
     @FXML
     private Label mLabelSelectorParameter;
 
@@ -84,10 +89,13 @@ public class MainWindowController implements Initializable{
 
     @FXML
     private ComboBox<String> mGenCombo;
-
+    
     @FXML
     private HBox mHboxGen;
-
+    
+    @FXML
+    private HBox mHboxPrioritizer;
+    
     @FXML
     private HBox mHboxTestPurpose;
 
@@ -96,10 +104,16 @@ public class MainWindowController implements Initializable{
 
     @FXML
     private Button mButtonGenHelp;
-
+    
+    @FXML
+    private Button mButtonPrioritizer;
+    
     @FXML
     private Label mLabelGenParameter;
-
+        
+    @FXML
+    private Label mLabelPrioritizerParameter;
+    
     @FXML
     private HBox mHboxSelector;
 
@@ -110,8 +124,14 @@ public class MainWindowController implements Initializable{
     private TextField mTextFieldSelectorParam;
 
     @FXML
+    private TextField mTextFieldPrioritizerParam;
+
+    @FXML
     private Label mLabelSelector;
 
+    @FXML
+    private Label mLabelPrioritizer;
+    
     @FXML
     private Button mButtonSubmit;
 
@@ -126,7 +146,9 @@ public class MainWindowController implements Initializable{
     protected LtsInfo mLtsInfo;
 
     private GenerationManager mGenManager;
-
+    
+    private PriorizationManager mPrioManager;
+    
     private SelectionManager mSelManager;
 
     private StopConditionManager mStopConditionManager;
@@ -146,7 +168,7 @@ public class MainWindowController implements Initializable{
 
         mViewer = new ComponentViewImpl();
         mScrollPane.setContent(mViewer);
-
+        
         Component component = (Component) resources.getObject("component");
         mViewer.setComponent(component);
 
@@ -159,6 +181,7 @@ public class MainWindowController implements Initializable{
         initManagers();
         initGenInfo();
         initSelectorInfo();
+        initPrioritizerInfo();
 
         initStopConditions();
 
@@ -221,6 +244,7 @@ public class MainWindowController implements Initializable{
         }else{
             mGenManager = new GenerationManager(new GeneratorSet());
             mSelManager = new SelectionManager(new SelectorSet());
+            mPrioManager = new PriorizationManager(new PrioritizerSet());
         }
 
         mStopConditionManager = new StopConditionManager();
@@ -238,7 +262,7 @@ public class MainWindowController implements Initializable{
 
         adjustGenConfiguration();
     }
-
+    
     protected void initSelectorInfo(){
         
         for (String p : mSelManager.getSelectorList()){
@@ -251,31 +275,20 @@ public class MainWindowController implements Initializable{
 
         adjustSelectorConfiguration();
     }
-
-    protected void adjustSelectorConfiguration(){
+    
+    protected void initPrioritizerInfo(){
         
-        String selector = getSelectedSelector();
-
-        if (selector != null && !"".equals(selector)){
-            
-            if (mSelManager.acceptParameter(selector)){
-                
-                if (!mHboxSelector.getChildren().contains(mTextFieldSelectorParam)){
-                    mHboxSelector.getChildren().add(mLabelSelectorParameter);
-                    mHboxSelector.getChildren().add(mTextFieldSelectorParam);
-                }
-
-                mTextFieldSelectorParam.setText(mSelManager.getDefaultParameterValue(selector));
-                mLabelSelectorParameter.setText(mSelManager.getParameterText(selector));
-            }else{
-                if (mHboxSelector.getChildren().contains(mTextFieldSelectorParam)){
-                    mHboxSelector.getChildren().remove(mLabelSelectorParameter);
-                    mHboxSelector.getChildren().remove(mTextFieldSelectorParam);
-                }
-            }
+        for (String p : mPrioManager.getPrioritizerList()){
+            mComboPrioritizer.getItems().add(p);
         }
-    }
 
+        if (mComboPrioritizer.getItems().size() > 0){
+            mComboPrioritizer.setValue(mComboPrioritizer.getItems().get(0));
+        }
+
+        adjustPrioritizerConfiguration();
+    }
+    
     protected void adjustGenConfiguration(){
         
         String generator = getSelectedGenerator();
@@ -311,7 +324,7 @@ public class MainWindowController implements Initializable{
                     mHboxTestPurpose.getChildren().add(mTextFieldTestPurpose);
                 }
             }
-
+            
             // Selector
             if (!mGenManager.acceptSelector(generator)){
                 
@@ -330,8 +343,75 @@ public class MainWindowController implements Initializable{
                     adjustSelectorConfiguration();
                 }
             }
-
+            
+            // Prioritizer
+            if (!mGenManager.acceptPrioritizer(generator)){
+                
+                if (mHboxPrioritizer.getChildren().contains(mComboPrioritizer)){
+                    mHboxPrioritizer.getChildren().remove(mLabelPrioritizer);
+                    mHboxPrioritizer.getChildren().remove(mButtonPrioritizer);
+                    mHboxPrioritizer.getChildren().remove(mComboPrioritizer);
+                    mHboxPrioritizer.getChildren().remove(mLabelPrioritizerParameter);
+                    mHboxPrioritizer.getChildren().remove(mTextFieldPrioritizerParam);
+                }
+            }else{
+                if (!mHboxPrioritizer.getChildren().contains(mComboPrioritizer)){
+                    mHboxPrioritizer.getChildren().add(mLabelPrioritizer);
+                    mHboxPrioritizer.getChildren().add(mComboPrioritizer);
+                    mHboxPrioritizer.getChildren().add(mButtonPrioritizer);
+                    adjustPrioritizerConfiguration();
+                }
+            }
+            
             mMainVBox.autosize();
+        }
+    }
+    
+    protected void adjustSelectorConfiguration(){
+        
+        String selector = getSelectedSelector();
+
+        if (selector != null && !"".equals(selector)){
+            
+            if (mSelManager.acceptParameter(selector)){
+                
+                if (!mHboxSelector.getChildren().contains(mTextFieldSelectorParam)){
+                    mHboxSelector.getChildren().add(mLabelSelectorParameter);
+                    mHboxSelector.getChildren().add(mTextFieldSelectorParam);
+                }
+
+                mTextFieldSelectorParam.setText(mSelManager.getDefaultParameterValue(selector));
+                mLabelSelectorParameter.setText(mSelManager.getParameterText(selector));
+            }else{
+                if (mHboxSelector.getChildren().contains(mTextFieldSelectorParam)){
+                    mHboxSelector.getChildren().remove(mLabelSelectorParameter);
+                    mHboxSelector.getChildren().remove(mTextFieldSelectorParam);
+                }
+            }
+        }
+    }
+    
+    protected void adjustPrioritizerConfiguration(){
+        
+        String prioritizer = getSelectedPrioritizer();
+        
+        if (prioritizer != null && !"".equals(prioritizer)){
+            
+            if (mPrioManager.acceptParameter(prioritizer)){
+                
+                if (!mHboxPrioritizer.getChildren().contains(mTextFieldPrioritizerParam)){
+                    mHboxPrioritizer.getChildren().add(mLabelPrioritizerParameter);
+                    mHboxPrioritizer.getChildren().add(mTextFieldPrioritizerParam);
+                }
+
+                mTextFieldPrioritizerParam.setText(mPrioManager.getDefaultParameterValue(prioritizer));
+                mLabelPrioritizerParameter.setText(mPrioManager.getParameterText(prioritizer));
+            }else{
+                if (mHboxPrioritizer.getChildren().contains(mTextFieldPrioritizerParam)){
+                    mHboxPrioritizer.getChildren().remove(mLabelPrioritizerParameter);
+                    mHboxPrioritizer.getChildren().remove(mTextFieldPrioritizerParam);
+                }
+            }
         }
     }
 
@@ -355,12 +435,17 @@ public class MainWindowController implements Initializable{
     protected void onClickGeneratorCombobox(ActionEvent event){
         adjustGenConfiguration();
     }
-
+    
+    @FXML
+    protected void onClickPrioritizerCombobox(ActionEvent event){
+        adjustPrioritizerConfiguration();
+    }
+    
     @FXML
     protected void onClickSelectorCombobox(ActionEvent event){
         adjustSelectorConfiguration();
     }
-
+    
     @FXML
     protected void onSubmit(ActionEvent event){
         
@@ -388,6 +473,7 @@ public class MainWindowController implements Initializable{
             public void run(){
                 
                 String selectedGen = getSelectedGenerator();
+                String selectedPri = getSelectedPrioritizer();
                 String selectedSel = getSelectedSelector();
 
                 mGeneratingPaths.set(true);
@@ -426,7 +512,7 @@ public class MainWindowController implements Initializable{
                 if (mPurposeSuite != null){
                     pathSet = TestPurposeSelector.select(pathSet, mPurposeSuite);
                 }
-
+                
                 if (mGenManager.acceptSelector(selectedGen)){
                     
                     String selParam = "";
@@ -437,8 +523,19 @@ public class MainWindowController implements Initializable{
 
                     pathSet = mSelManager.select(selectedSel, mLtsInfo, pathSet, selParam);
                 }
+                
+                if(mGenManager.acceptPrioritizer(selectedGen)){
+                    
+                    String priParam = "";
+                    
+                    if (mPrioManager.acceptParameter(selectedPri)){
+                        priParam = mTextFieldPrioritizerParam.getText();
+                    }
+                    
+                     pathSet = mPrioManager.select(selectedPri, mLtsInfo, pathSet, priParam);
+                }
 
-                ResultInfo result = new ResultInfo(pathSet, selectedGen, getSelectedSelector(), "");
+                ResultInfo result = new ResultInfo(pathSet, selectedGen, getSelectedSelector(), getSelectedPrioritizer(), "");
 
                 mGeneratingPaths.set(false);
 
@@ -460,9 +557,13 @@ public class MainWindowController implements Initializable{
     protected String getSelectedGenerator(){
         return mGenCombo.getSelectionModel().getSelectedItem();
     }
-
+    
     protected String getSelectedSelector(){
         return mComboSelector.getSelectionModel().getSelectedItem();
+    }
+
+    protected String getSelectedPrioritizer(){
+        return mComboPrioritizer.getSelectionModel().getSelectedItem();
     }
 
     @FXML
@@ -541,6 +642,44 @@ public class MainWindowController implements Initializable{
         }
     }
 
+    @FXML
+    protected void onClickPrioritizerHelpButton(ActionEvent event){
+        
+        String prioritizer = getSelectedPrioritizer();
+
+        if (prioritizer != null){
+            mButtonPrioritizer.setTooltip(new Tooltip(mPrioManager.getDescription(prioritizer)));
+        }
+
+        URL location = getClass().getResource("DescriptionPopup.fxml");
+
+        FXMLLoader loader = new FXMLLoader();
+
+        ResourceBundle rBundle = new DescriptionBundle(prioritizer, mPrioManager.getDescription(prioritizer));
+
+        loader.setClassLoader(getClass().getClassLoader());
+        loader.setLocation(location);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+        loader.setResources(rBundle);
+
+        try{
+            Parent root = (Parent) loader.load(location.openStream());
+
+            Popup popup = new Popup();
+
+            Scene scene = new Scene(root);
+
+            popup.setAutoHide(true);
+            popup.setHideOnEscape(true);
+            popup.getContent().addAll(scene.getRoot());
+            popup.setAutoFix(true);
+            popup.show(mMainVBox.getScene().getWindow());
+
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+            
     protected Map<String, String> mountStopConditionMap(){
         
         HashMap<String, String> scMap = new HashMap<>();
@@ -613,3 +752,4 @@ public class MainWindowController implements Initializable{
         }
     }
 }
+

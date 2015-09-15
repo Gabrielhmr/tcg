@@ -51,6 +51,8 @@ abstract public class PathGenerator{
 
     abstract public void setParameter(String value);
 
+    abstract public boolean acceptPrioritizer();
+    
     abstract public boolean acceptSelector();
 
     abstract public boolean acceptPurpose();

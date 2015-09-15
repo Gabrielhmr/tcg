@@ -20,6 +20,15 @@ public class GeneratorSet{
     public GeneratorSet(){
         init();
     }
+    
+    public boolean acceptPrioritizer(String name){
+        
+        if (mGeneratorMap.containsKey(name)){
+            return mGeneratorMap.get(name).acceptPrioritizer();
+        }
+
+        return false;
+    }
 
     public boolean acceptSelector(String name){
         

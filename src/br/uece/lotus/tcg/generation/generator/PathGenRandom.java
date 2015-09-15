@@ -168,4 +168,9 @@ public class PathGenRandom extends PathGenerator{
     public boolean acceptSelector(){
         return true;
     }
+
+    @Override
+    public boolean acceptPrioritizer() {
+        return false;
+    }
 }

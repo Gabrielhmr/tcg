@@ -198,4 +198,9 @@ public class PathGenAllStates extends PathGenBreadthFirst{
     public boolean acceptSelector(){
         return true;
     }
+
+    @Override
+    public boolean acceptPrioritizer() {
+        return false;
+    }
 }
