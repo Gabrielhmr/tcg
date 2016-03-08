@@ -6,6 +6,7 @@ import br.uece.lotus.tcg.generation.generator.PathGenAllOneLoop;
 import br.uece.lotus.tcg.generation.generator.PathGenAllPaths;
 import br.uece.lotus.tcg.generation.generator.PathGenAllStates;
 import br.uece.lotus.tcg.generation.generator.PathGenAllTransitions;
+import br.uece.lotus.tcg.generation.generator.PathGenAllTransitionsPairs;
 import br.uece.lotus.tcg.generation.generator.PathGenRandom;
 import br.uece.lotus.tcg.generation.generator.PathGenShortest;
 import java.util.ArrayList;
@@ -111,6 +112,7 @@ public class GeneratorSet{
         genList.add(new PathGenAllStates());
         genList.add(new PathGenAllTransitions());
         genList.add(new PathGenRandom());
+        genList.add(new PathGenAllTransitionsPairs());
 
         return genList;
     }
