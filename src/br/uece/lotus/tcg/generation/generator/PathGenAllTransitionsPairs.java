@@ -57,26 +57,28 @@ public class PathGenAllTransitionsPairs extends PathGenAllTransitions {
         String stateLabel = mParameter.toString();
 
         for (Transition t : path.getCurrentState().getOutgoingTransitions()) {
-                System.out.println("-----to no FOR como : "+ path.getCurrentState().getLabel());
+            System.out.println("-----to no FOR como : " + path.getCurrentState().getLabel());
             State lastState = t.getDestiny();
+            //State lastState = path.getCurrentState();
             if (lastState.getLabel().equals(stateLabel)) {
                 System.out.println("entrei e sou estado: " + lastState.getLabel());
-                List<Transition> mTransicoesEntrada = lastState.getIncomingTransitionsList();
+                
+                List<Transition> mTransicoesEntrada = lastState.getIncomingTransitionsList();              
                 System.out.println("Trasitions de entrada");
                 for (Transition mTransicoesEntrada1 : mTransicoesEntrada) {
                     System.out.println(mTransicoesEntrada1.getLabel());
                 }
-                
+
                 System.out.println("Trasitions de saida");
                 List<Transition> mTransicoesSaida = lastState.getOutgoingTransitionsList();
                 for (Transition mTransicoesSaida1 : mTransicoesSaida) {
                     System.out.println(mTransicoesSaida1.getLabel());
                 }
-                
+
                 for (Transition tEntrada : mTransicoesEntrada) {
                     for (Transition tSaida : mTransicoesSaida) {
                         System.out.println("cria new path");
-                        PathStruct newPath = new PathStruct(path);
+                        PathStruct newPath = new PathStruct();
                         newPath.addTransition(tEntrada);
                         newPath.addTransition(tSaida);
                         System.out.println("add a lista trans: " + tEntrada.getLabel() + tSaida.getLabel());
@@ -88,6 +90,9 @@ public class PathGenAllTransitionsPairs extends PathGenAllTransitions {
             break;
         }
 
+        for (PathStruct ps : list) {
+            System.out.println("path: " + ps.getInitialTransition().getLabel() + ps.getLastTransition().getLabel());
+        }
         return list;
     }
 }

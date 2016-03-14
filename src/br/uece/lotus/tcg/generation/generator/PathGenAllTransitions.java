@@ -109,6 +109,9 @@ public class PathGenAllTransitions extends PathGenBreadthFirst{
 
             list.add(newPath);
         }
+        for (PathStruct ps : list) {
+            System.out.println("path: " + ps.getInitialTransition().getLabel() + ps.getLastTransition().getLabel());
+        }
         return list;
     }
 
