@@ -22,25 +22,7 @@
                     <content>
                         <HBox>
                             <children>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
-                           <children>
-                              <TableView prefHeight="75.0" prefWidth="287.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="Input" />
-                                  <TableColumn prefWidth="73.0" text="Value" />
-                                    <TableColumn prefWidth="56.0" text="Expected Value" />
-                                </columns>
-                                 <columnResizePolicy>
-                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-                                 </columnResizePolicy>
-                                 <effect>
-                                    <ColorAdjust />
-                                 </effect>
-                              </TableView>
-                           </children>
-                        </HBox>
-                        <Separator orientation="VERTICAL" prefHeight="200.0" />
-                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="75.0" prefWidth="343.0" spacing="6.0">
+                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="75.0" prefWidth="380.0" spacing="6.0">
                                       <padding>
                                           <Insets bottom="5.0" right="5.0" />
                                       </padding>
@@ -63,6 +45,23 @@
                                                </Button>
                                       </children>
                                   </HBox>
+                        <HBox prefHeight="75.0" prefWidth="445.0">
+                           <children>
+                              <TableView prefHeight="75.0" prefWidth="447.0">
+                                <columns>
+                                  <TableColumn prefWidth="75.0" text="Input" />
+                                  <TableColumn prefWidth="73.0" text="Value" />
+                                    <TableColumn prefWidth="67.0" text="Expected Value" />
+                                </columns>
+                                 <columnResizePolicy>
+                                    <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                                 </columnResizePolicy>
+                                 <effect>
+                                    <ColorAdjust />
+                                 </effect>
+                              </TableView>
+                           </children>
+                        </HBox>
                             </children>
                         </HBox>
                     </content>
