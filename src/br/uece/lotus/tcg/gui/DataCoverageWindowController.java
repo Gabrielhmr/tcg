@@ -10,11 +10,16 @@ import br.uece.lotus.Transition;
 import br.uece.lotus.tcg.struct.LtsInfo;
 import br.uece.lotus.tcg.utils.DebugLog;
 import br.uece.lotus.viewer.ComponentViewImpl;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.fxml.JavaFXBuilderFactory;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -23,6 +28,9 @@ import javafx.scene.control.TabPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  *
@@ -103,8 +111,35 @@ public class DataCoverageWindowController implements Initializable {
     }
 
     @FXML
-    void onClickGenHelpButton(ActionEvent event) {
+    void onClickGenHelpButton(ActionEvent event) throws Exception {
 
+        URL location = getClass().getResource("AddGuard.fxml");
+
+        FXMLLoader loader = new FXMLLoader();
+
+        loader.setClassLoader(getClass().getClassLoader());
+        loader.setLocation(location);
+        loader.setBuilderFactory(new JavaFXBuilderFactory());
+       // loader.setResources(rBundle);
+
+        try{
+            Parent root = (Parent) loader.load(location.openStream());
+
+            Scene scene = new Scene(root);
+            Stage window = new Stage(StageStyle.UTILITY);
+            window.initModality(Modality.APPLICATION_MODAL);
+
+            window.setResizable(false);
+            window.setMinWidth(300);
+            window.setMinHeight(250);
+
+            window.setScene(scene);
+            window.showAndWait();
+
+        }catch (IOException e){
+        }
+        
+                
     }
 
     @FXML
