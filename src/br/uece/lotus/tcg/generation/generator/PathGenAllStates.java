@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class PathGenAllStates extends PathGenBreadthFirst{
 
-    private Set<State> mStatesCoverage;
+    protected Set<State> mStatesCoverage;
 
     @Override
     public String getName(){

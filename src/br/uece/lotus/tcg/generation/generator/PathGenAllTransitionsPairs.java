@@ -11,12 +11,13 @@ import br.uece.lotus.tcg.struct.PathStruct;
 import java.time.Clock;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  *
  * @author Gabriel
  */
-public class PathGenAllTransitionsPairs extends PathGenAllTransitions {
+public class PathGenAllTransitionsPairs extends PathGenAllStates {
 
     protected Integer mParameter;
 
@@ -55,29 +56,31 @@ public class PathGenAllTransitionsPairs extends PathGenAllTransitions {
 
         List<PathStruct> list = new ArrayList<>();
         String stateLabel = mParameter.toString();
+        //List<Transition> mTransicoesEntrada = new ArrayList();
+       // List<Transition> mTransicoesSaida = new ArrayList();
 
-        for (Transition t : path.getCurrentState().getOutgoingTransitions()) {
-            System.out.println("-----to no FOR como : " + path.getCurrentState().getLabel());
-            State lastState = t.getDestiny();
-            //State lastState = path.getCurrentState();
-            if (lastState.getLabel().equals(stateLabel)) {
-                System.out.println("entrei e sou estado: " + lastState.getLabel());
-                
-                List<Transition> mTransicoesEntrada = lastState.getIncomingTransitionsList();              
+        super.expand(path);
+        Set<State> statesList = super.mStatesCoverage;
+       
+        for (State state : statesList) {
+            System.out.println("states: " + state.getLabel());
+            if (state.getLabel().equals(stateLabel)) {
+
+                List<Transition> mTransicoesEntrada = state.getIncomingTransitionsList();
                 System.out.println("Trasitions de entrada");
                 for (Transition mTransicoesEntrada1 : mTransicoesEntrada) {
                     System.out.println(mTransicoesEntrada1.getLabel());
                 }
 
                 System.out.println("Trasitions de saida");
-                List<Transition> mTransicoesSaida = lastState.getOutgoingTransitionsList();
+                List<Transition> mTransicoesSaida = state.getOutgoingTransitionsList();
                 for (Transition mTransicoesSaida1 : mTransicoesSaida) {
                     System.out.println(mTransicoesSaida1.getLabel());
                 }
-
+                
                 for (Transition tEntrada : mTransicoesEntrada) {
                     for (Transition tSaida : mTransicoesSaida) {
-                        System.out.println("cria new path");
+                        System.out.println("cria new path");                       
                         PathStruct newPath = new PathStruct();
                         newPath.addTransition(tEntrada);
                         newPath.addTransition(tSaida);
@@ -86,13 +89,54 @@ public class PathGenAllTransitionsPairs extends PathGenAllTransitions {
                         System.out.println("ADICIONADO");
                     }
                 }
+                break;
             }
-            break;
+
         }
 
-        for (PathStruct ps : list) {
-            System.out.println("path: " + ps.getInitialTransition().getLabel() + ps.getLastTransition().getLabel());
-        }
+//        
+//
+//        for (Transition t : path.getCurrentState().getOutgoingTransitions()) {
+//
+//            System.out.println("-----From State : " + path.getCurrentState().getLabel());
+//            System.out.println("-----with transiction: " + t.getLabel());
+//            State lastState = t.getDestiny();
+//            System.out.println("-----To State :" + lastState.getLabel());
+//            //State lastState = path.getCurrentState();
+//            if (!lastState.getLabel().equals(stateLabel)) {
+//                System.out.println("n sou estado certo: " + lastState.getLabel());
+//                continue;
+//            }
+//            System.out.println(" estado certo: " + lastState.getLabel());
+//
+//            List<Transition> mTransicoesEntrada = lastState.getIncomingTransitionsList();
+//            System.out.println("Trasitions de entrada");
+//            for (Transition mTransicoesEntrada1 : mTransicoesEntrada) {
+//                System.out.println(mTransicoesEntrada1.getLabel());
+//            }
+//
+//            System.out.println("Trasitions de saida");
+//            List<Transition> mTransicoesSaida = lastState.getOutgoingTransitionsList();
+//            for (Transition mTransicoesSaida1 : mTransicoesSaida) {
+//                System.out.println(mTransicoesSaida1.getLabel());
+//            }
+//
+//        for (Transition tEntrada : mTransicoesEntrada) {
+//            for (Transition tSaida : mTransicoesSaida) {
+//                System.out.println("cria new path");
+//                PathStruct newPath = new PathStruct();
+//                newPath.addTransition(tEntrada);
+//                newPath.addTransition(tSaida);
+//                System.out.println("add a lista trans: " + tEntrada.getLabel() + tSaida.getLabel());
+//                list.add(newPath);
+//                System.out.println("ADICIONADO");
+//            }
+//        }
+////        }
+//
+////        for (PathStruct ps : list) {
+////            System.out.println("path: " + ps.getInitialTransition().getLabel() + ps.getLastTransition().getLabel());
+////        }
         return list;
     }
 }
