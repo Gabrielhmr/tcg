@@ -27,7 +27,7 @@ public class TcgPlugin extends Plugin implements Tcg {
     private ProjectExplorer mProjectExplorer;
 
     public static enum Mode {
-        Statistical, Functional, Exception
+        Statistical, Functional, Exception, DataCoverage
     };
 
     private Mode windowMode;
@@ -36,7 +36,13 @@ public class TcgPlugin extends Plugin implements Tcg {
     public void show(Component c, boolean editable) {
         
         URL location;
-        location = getClass().getResource("gui/MainWindow.fxml");
+        if(windowMode == Mode.DataCoverage){
+           location = getClass().getResource("gui/DataCoverageWindow.fxml");
+            
+        }
+        else    
+            location = getClass().getResource("gui/MainWindow.fxml");
+        
         FXMLLoader loader = new FXMLLoader();
 
         ResourceBundle bundle = new ResourceBundle() {
@@ -174,6 +180,25 @@ public class TcgPlugin extends Plugin implements Tcg {
 
     };
 
+     private Runnable mDataCoverageRunnable = () -> {
+        
+       Component c = mProjectExplorer.getSelectedComponent();
+
+        try{
+            if (c == null){
+                JOptionPane.showMessageDialog(null, "Select a component!");
+                return;
+            }
+
+            windowMode = Mode.DataCoverage;
+
+            show(c.clone(), true);
+
+        }catch (CloneNotSupportedException ex){
+            Logger.getLogger(Tcg.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    };
     private UserInterface mUserInterface;
 
     @Override
@@ -185,7 +210,7 @@ public class TcgPlugin extends Plugin implements Tcg {
         mUserInterface.getMainMenu().newItem("TCG/Functional").setWeight(1).setAction(mFunctionalTests).create();
         mUserInterface.getMainMenu().newItem("TCG/Statistical").setWeight(1).setAction(mStatisticalTests).create();
         mUserInterface.getMainMenu().newItem("TCG/About").setWeight(1).setAction(mAboutRunnable).create();
-
+        mUserInterface.getMainMenu().newItem("TCG/Data Coverage").setWeight(1).setAction(mDataCoverageRunnable).create();
 //        mUserInterface.getMainMenu().addItem(Integer.MAX_VALUE - 1, "TCG/Exception", mExceptionTests);
     }
 
