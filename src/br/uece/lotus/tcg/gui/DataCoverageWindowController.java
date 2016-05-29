@@ -13,6 +13,9 @@ import br.uece.lotus.viewer.ComponentViewImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +28,10 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TabPane;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -58,6 +64,18 @@ public class DataCoverageWindowController implements Initializable {
 
     @FXML
     private TabPane mTabPane;
+    
+    @FXML
+    private TableView mTableView;
+    
+    @FXML
+    private TableColumn mColumnGuard;
+    
+    @FXML
+    private TableColumn mColumnInput;
+    
+    @FXML
+    private TableColumn mColumnExpectedValue;
 
     @FXML
     private ComboBox<String> mGenCombo;
@@ -68,7 +86,9 @@ public class DataCoverageWindowController implements Initializable {
     protected ComponentViewImpl mViewer;
 
     protected LtsInfo mLtsInfo;
-
+    
+    private final ObservableList<DataCoverageTest> data = FXCollections.observableArrayList();
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         DebugLog.printLog("DataCoverageWindowController -> initialize", ">> Start");
@@ -139,15 +159,58 @@ public class DataCoverageWindowController implements Initializable {
         }catch (IOException e){
         }
         
-                
     }
 
     @FXML
     void onSubmit(ActionEvent event) {
          String value = mTextFieldGenParam.getText();
          System.err.println("Test Value: "+ value);
+                  
+         System.err.println("preenchendo colunas de table");
+         DataCoverageTest test = new DataCoverageTest(getSelectedGuard(), value, getSelectedGuard()); 
+         data.add(test);
+        
+         mColumnGuard.setCellValueFactory(new PropertyValueFactory<>("Guard"));
+         mColumnInput.setCellValueFactory(new PropertyValueFactory<>("Input"));
+         mColumnExpectedValue.setCellValueFactory(new PropertyValueFactory<>("ExpectedValue"));
          
-         //DataCOverageClass
-         
+         mTableView.setItems(data);
+    }
+    
+    public static class DataCoverageTest {
+ 
+        private final SimpleStringProperty guard;
+        private final SimpleStringProperty input;
+        private final SimpleStringProperty expectedValue;
+ 
+        private DataCoverageTest(String guard, String input, String expectedValue) {
+            this.guard = new SimpleStringProperty(guard);
+            this.input = new SimpleStringProperty(input);
+            this.expectedValue = new SimpleStringProperty(expectedValue);
+        }
+ 
+        public String getGuard() {
+            return guard.get();
+        }
+ 
+        public void setGuard(String guard) {
+            this.guard.set(guard);
+        }
+ 
+        public String getInput() {
+            return input.get();
+        }
+ 
+        public void setInput(String input) {
+            this.input.set(input);
+        }
+ 
+        public String getExpectedValue() {
+            return expectedValue.get();
+        }
+ 
+        public void setExpectedValue(String expectedValue) {
+            this.expectedValue.set(expectedValue);
+        }
     }
 }
