@@ -16,13 +16,13 @@
                 <Insets />
             </VBox.margin>
         </ScrollPane>
-        <TabPane fx:id="mTabPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="104.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
+        <TabPane fx:id="mTabPane" nodeOrientation="LEFT_TO_RIGHT" prefHeight="125.0" prefWidth="800.0" tabClosingPolicy="UNAVAILABLE">
             <tabs>
                 <Tab closable="false" text="Data Coverage Test">
                     <content>
                         <HBox>
                             <children>
-                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="75.0" prefWidth="435.0" spacing="6.0">
+                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="548.0" spacing="6.0">
                                       <padding>
                                           <Insets bottom="5.0" right="5.0" />
                                       </padding>
@@ -43,11 +43,16 @@
                                                      <Cursor fx:constant="DEFAULT" />
                                                   </cursor>
                                                </Button>
+                              <Button fx:id="mButtonRunTest" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" defaultButton="true" layoutX="275.0" layoutY="43.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#onRunTest" text="Run Test" textAlignment="JUSTIFY">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </Button>
                                       </children>
                                   </HBox>
-                        <HBox  prefHeight="75.0" prefWidth="445.0">
+                        <HBox prefHeight="75.0" prefWidth="445.0">
                            <children>
-                              <TableView fx:id="mTableView" prefHeight="75.0" prefWidth="447.0">
+                              <TableView fx:id="mTableView" prefHeight="96.0" prefWidth="397.0">
                                 <columns>
                                   <TableColumn fx:id="mColumnGuard" prefWidth="75.0" text="Guard" />  
                                   <TableColumn fx:id="mColumnInput" prefWidth="73.0" text="Input" />
@@ -66,16 +71,6 @@
                         </HBox>
                     </content>
                 </Tab>
-            <Tab text="Result">
-               <content>
-                  <TableView prefHeight="200.0" prefWidth="200.0">
-                    <columns>
-                      <TableColumn prefWidth="75.0" text="C1" />
-                      <TableColumn prefWidth="75.0" text="C2" />
-                    </columns>
-                  </TableView>
-               </content>
-            </Tab>
             </tabs>
         </TabPane>
     </children>
