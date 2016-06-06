@@ -10,3 +10,11 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 .nb-gradle/
+/Carros/nbproject/private/
+/ Compra/nbproject/private/
+/TCG/nbproject/project.properties
+/TCG/manifest.mf
+/TCG/nbproject/project.xml
+/TCG/nbbuild.xml
+/TCG/nbproject/genfiles.properties
+/TCG/nbproject/build-impl.xml
