@@ -5,9 +5,25 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="180.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.uece.lotus.tcg.gui.AddGuardController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.uece.lotus.tcg.gui.AddGuardController">
    <children>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <Label text="Transitions">
+               <opaqueInsets>
+                  <Insets right="20.0" />
+               </opaqueInsets>
+            </Label>
+            <ComboBox fx:id="cbTransitions" prefWidth="150.0">
+               <opaqueInsets>
+                  <Insets left="10.0" />
+               </opaqueInsets>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
+            </ComboBox>
+         </children>
+      </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <Label fx:id="lblGuard" text="Guard">
@@ -24,14 +40,14 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblValue" text="Value">
+            <Label fx:id="lblValue" text="Expected Value">
                <HBox.margin>
                   <Insets left="10.0" top="15.0" />
                </HBox.margin>
             </Label>
             <TextField fx:id="txtValue">
                <HBox.margin>
-                  <Insets left="68.0" top="10.0" />
+                  <Insets left="18.0" top="10.0" />
                </HBox.margin>
             </TextField>
          </children>

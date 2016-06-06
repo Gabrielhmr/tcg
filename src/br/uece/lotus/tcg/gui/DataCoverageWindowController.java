@@ -14,6 +14,7 @@ import br.uece.lotus.viewer.ComponentViewImpl;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -146,7 +147,27 @@ public class DataCoverageWindowController implements Initializable {
 
     @FXML
     void onClickGenHelpButton(ActionEvent event) throws Exception {
+            
+            ResourceBundle rb = new ResourceBundle() {
+                
+                
+                @Override
+                protected Object handleGetObject(String key) {
+                    if (key.contains("transitions")) {
+                        return trasitionsList;
+                    }
+                    else
+                        return null;
+                }
 
+                @Override
+                public Enumeration<String> getKeys() {
+                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+                }
+            };
+
+        
+        
         URL location = getClass().getResource("AddGuard.fxml");
 
         FXMLLoader loader = new FXMLLoader();
@@ -154,9 +175,12 @@ public class DataCoverageWindowController implements Initializable {
         loader.setClassLoader(getClass().getClassLoader());
         loader.setLocation(location);
         loader.setBuilderFactory(new JavaFXBuilderFactory());
-        // loader.setResources(rBundle);
+        loader.setResources(rb);
 
-        try {
+       // loader.setResources(rBundle);
+        
+        try{
+  
             Parent root = (Parent) loader.load(location.openStream());
 
             Scene scene = new Scene(root);
@@ -166,9 +190,12 @@ public class DataCoverageWindowController implements Initializable {
             window.setResizable(false);
             window.setMinWidth(300);
             window.setMinHeight(250);
+            
 
             window.setScene(scene);
+           
             window.showAndWait();
+            System.out.println("Chamou?");
 
         } catch (IOException e) {
         }
