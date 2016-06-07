@@ -34,15 +34,15 @@ public class TcgPlugin extends Plugin implements Tcg {
 
     @Override
     public void show(Component c, boolean editable) {
-        
+
         URL location;
-        if(windowMode == Mode.DataCoverage){
-           location = getClass().getResource("gui/DataCoverageWindow.fxml");
-            
-        }
-        else    
+        if (windowMode == Mode.DataCoverage) {
+            location = getClass().getResource("gui/DataCoverageWindow.fxml");
+
+        } else {
             location = getClass().getResource("gui/MainWindow.fxml");
-        
+        }
+
         FXMLLoader loader = new FXMLLoader();
 
         ResourceBundle bundle = new ResourceBundle() {
@@ -50,12 +50,12 @@ public class TcgPlugin extends Plugin implements Tcg {
             boolean mStatistical = windowMode == Mode.Statistical;
 
             @Override
-            protected Object handleGetObject(String key){
-                if (key == "component"){
+            protected Object handleGetObject(String key) {
+                if (key == "component") {
                     return mComponent;
                 }
 
-                if (key == "statisticalmode"){
+                if (key == "statisticalmode") {
                     return mStatistical;
                 }
 
@@ -63,7 +63,7 @@ public class TcgPlugin extends Plugin implements Tcg {
             }
 
             @Override
-            public Enumeration<String> getKeys(){
+            public Enumeration<String> getKeys() {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         };
@@ -77,7 +77,7 @@ public class TcgPlugin extends Plugin implements Tcg {
 
             int id = mUserInterface.getCenterPanel().newTab(c.getName() + " - [TCG]", root, true);
             mUserInterface.getCenterPanel().showTab(id);
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -88,7 +88,7 @@ public class TcgPlugin extends Plugin implements Tcg {
         Component c = mProjectExplorer.getSelectedComponent();
 
         try {
-            if (c == null){
+            if (c == null) {
                 JOptionPane.showMessageDialog(null, "Select a component!");
                 return;
             }
@@ -97,7 +97,7 @@ public class TcgPlugin extends Plugin implements Tcg {
 
             show(c.clone(), true);
 
-        }catch (CloneNotSupportedException ex){
+        } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Tcg.class.getName()).log(Level.SEVERE, null, ex);
 
         }
@@ -108,8 +108,8 @@ public class TcgPlugin extends Plugin implements Tcg {
 
         Component c = mProjectExplorer.getSelectedComponent();
 
-        try{
-            if (c == null){
+        try {
+            if (c == null) {
                 JOptionPane.showMessageDialog(null, "Select a component!");
                 return;
             }
@@ -118,40 +118,40 @@ public class TcgPlugin extends Plugin implements Tcg {
 
             show(c.clone(), true);
 
-        }catch (CloneNotSupportedException ex){
+        } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Tcg.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     };
 
     private Runnable mStatisticalTests = () -> {
-        
+
         DebugLog.printLog("TCG - Statistical Tests Menu Pressed");
         Component c = mProjectExplorer.getSelectedComponent();
 
         try {
-            if (c == null){
+            if (c == null) {
                 JOptionPane.showMessageDialog(null, "Select a component!");
                 return;
             }
             windowMode = Mode.Statistical;
 
-            for (Transition t : c.getTransitions()){
-                if (t.getProbability() == null){
+            for (Transition t : c.getTransitions()) {
+                if (t.getProbability() == null) {
                     JOptionPane.showMessageDialog(null, "There are no probability setted for some transitions!");
                     return;
                 }
             }
 
             show(c.clone(), true);
-        }catch (CloneNotSupportedException ex){
+        } catch (CloneNotSupportedException ex) {
 
             Logger.getLogger(Tcg.class.getName()).log(Level.SEVERE, null, ex);
         }
     };
 
     private Runnable mAboutRunnable = () -> {
-        
+
         DebugLog.printLog("TCG - About Pressed");
         URL location = getClass().getResource("gui/AboutWindow.fxml");
         FXMLLoader loader = new FXMLLoader();
@@ -173,19 +173,19 @@ public class TcgPlugin extends Plugin implements Tcg {
 
             window.setScene(scene);
             window.showAndWait();
-            
-        }catch (IOException e) {
+
+        } catch (IOException e) {
 
         }
 
     };
 
-     private Runnable mDataCoverageRunnable = () -> {
-        
-       Component c = mProjectExplorer.getSelectedComponent();
+    private Runnable mDataCoverageRunnable = () -> {
 
-        try{
-            if (c == null){
+        Component c = mProjectExplorer.getSelectedComponent();
+
+        try {
+            if (c == null) {
                 JOptionPane.showMessageDialog(null, "Select a component!");
                 return;
             }
@@ -194,7 +194,7 @@ public class TcgPlugin extends Plugin implements Tcg {
 
             show(c.clone(), true);
 
-        }catch (CloneNotSupportedException ex){
+        } catch (CloneNotSupportedException ex) {
             Logger.getLogger(Tcg.class.getName()).log(Level.SEVERE, null, ex);
         }
 
@@ -202,7 +202,7 @@ public class TcgPlugin extends Plugin implements Tcg {
     private UserInterface mUserInterface;
 
     @Override
-    public void onStart(ExtensionManager extensionManager) throws Exception{
+    public void onStart(ExtensionManager extensionManager) throws Exception {
 
         mUserInterface = extensionManager.get(UserInterface.class);
         mProjectExplorer = extensionManager.get(ProjectExplorer.class);
