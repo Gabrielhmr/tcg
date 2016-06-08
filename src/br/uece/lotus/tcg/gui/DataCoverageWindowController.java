@@ -224,7 +224,6 @@ public class DataCoverageWindowController implements Initializable {
 
     @FXML
     void onRunTest(ActionEvent event) {
-
         List<String> columnDataGuardList = new ArrayList<>();
         List<String> columnDataInputList = new ArrayList<>();
         List<String> columnDataExpectedValueList = new ArrayList<>();
@@ -234,13 +233,21 @@ public class DataCoverageWindowController implements Initializable {
             columnDataInputList.add((String) mColumnInput.getCellObservableValue(item).getValue());
             columnDataExpectedValueList.add((String) mColumnExpectedValue.getCellObservableValue(item).getValue());
         }
-
+        
+        //clear Result Table
+        dataCoverage.getResults().clear();
+        dataTableRunTest.clear();
+        
         dataCoverage.validateTest(trasitionsList, columnDataGuardList, columnDataInputList, columnDataExpectedValueList);
-        DataCoverageResultTab mTabResult = new DataCoverageResultTab(dataCoverage.getResults());
-        dataTableRunTest.add(mTabResult);
+        
+        DataCoverageResultTab mTabResult = null;
+        for (List<String> resultList : dataCoverage.getResults()) {
+            mTabResult = new DataCoverageResultTab(resultList);
+            dataTableRunTest.add(mTabResult);
+        } 
 
         TableView mTableResult = mTabResult.createTable(dataTableRunTest);
-
+        
         mTabResult.setContent(mTableResult);
         mTabResult.setText("Results");
         mTabResult.setClosable(true);
@@ -248,7 +255,8 @@ public class DataCoverageWindowController implements Initializable {
         mTabPane.getTabs().add(mTabResult);
         
         mButtonRunTest.setDisable(true);
-
+       
+        //////delete////////mTableResult.getSelectionModel().clearSelection();
     }
 
     public static class DataCoverageTest {

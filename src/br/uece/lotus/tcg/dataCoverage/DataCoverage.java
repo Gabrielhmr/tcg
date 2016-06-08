@@ -21,6 +21,7 @@ import java.util.List;
  */
 public class DataCoverage {
 
+    List<List<String>> finalResultList = new ArrayList<>();
     private List<String> resultTab;
 
     public List<Transition> getTransitions(LtsInfo mLtsInfo) {
@@ -30,9 +31,6 @@ public class DataCoverage {
         if (pathSet.getPathList() != null) {
             for (List<Transition> path : pathSet.getPathList()) {
                 return path;
-//                for (Transition t : path) {
-//                     System.err.println("Minhas Transiçoes (Action):" + t.getLabel()); 
-//                }
             }
         }
         return null;
@@ -48,6 +46,7 @@ public class DataCoverage {
                 if (transition.getGuard() != null && transition.getGuard().equals(columnDataGuardList.get(row))) {
                     String resultMsg = (testResult) ? "True" : "False"; 
                     resultTab = Arrays.asList(coveragedPath.toString(), transition.getLabel(), resultMsg);
+                    finalResultList.add(resultTab);
                     break;
                 } else {
                     if (transition.getGuard() == null && noGuard) {
@@ -63,9 +62,9 @@ public class DataCoverage {
 
     }
 
-    public List<String> getResults() {
+    public List<List<String>> getResults() {
         System.err.println("Criando result Table");
-        return resultTab;
+        return finalResultList;
     }
 
 }
