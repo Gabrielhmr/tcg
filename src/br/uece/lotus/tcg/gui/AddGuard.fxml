@@ -40,20 +40,6 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblValueTested" text="Value Tested">
-               <HBox.margin>
-                  <Insets left="10.0" top="15.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="txtValueTested">
-               <HBox.margin>
-                  <Insets left="30.0" top="10.0" />
-               </HBox.margin>
-            </TextField>
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
             <HBox prefHeight="42.0" prefWidth="157.0" />
             <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onClickGenAddButton" text="Add">
                <HBox.margin>
