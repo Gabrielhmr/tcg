@@ -5,7 +5,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="263.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.uece.lotus.tcg.gui.AddGuardController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="187.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.uece.lotus.tcg.gui.AddGuardController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
@@ -40,20 +40,6 @@
       </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
-            <Label fx:id="lblValue" text="Expected Value">
-               <HBox.margin>
-                  <Insets left="10.0" top="15.0" />
-               </HBox.margin>
-            </Label>
-            <TextField fx:id="txtValue">
-               <HBox.margin>
-                  <Insets left="18.0" top="10.0" />
-               </HBox.margin>
-            </TextField>
-         </children>
-      </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0">
-         <children>
             <Label fx:id="lblValueTested" text="Value Tested">
                <HBox.margin>
                   <Insets left="10.0" top="15.0" />
@@ -69,12 +55,12 @@
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <HBox prefHeight="42.0" prefWidth="157.0" />
-            <Button fx:id="btnAdd" mnemonicParsing="false" text="Add">
+            <Button fx:id="btnAdd" mnemonicParsing="false" onAction="#onClickGenAddButton" text="Add">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>
             </Button>
-            <Button fx:id="btnCancel" mnemonicParsing="false" text="Cancel">
+            <Button fx:id="btnCancel" mnemonicParsing="false" onAction="#onClickGenCalcelButton" text="Cancel">
                <HBox.margin>
                   <Insets left="10.0" top="10.0" />
                </HBox.margin>

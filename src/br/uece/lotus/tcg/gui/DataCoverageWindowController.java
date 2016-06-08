@@ -123,10 +123,15 @@ public class DataCoverageWindowController implements Initializable {
 
     protected void initGuardInfo() {
 
-        trasitionsList = dataCoverage.getTransitions(mLtsInfo);
+        trasitionsList = mViewer.getComponent().getTransitions();
+        
+        //trasitionsList = dataCoverage.getTransitions(mLtsInfo);
 
         for (Transition transition : trasitionsList) {
+           
+            System.out.println(transition.getLabel());
             if (transition.getGuard() != null) {
+                
                 mGenCombo.getItems().add(transition.getGuard());
             }
         }
@@ -156,6 +161,9 @@ public class DataCoverageWindowController implements Initializable {
                     if (key.contains("transitions")) {
                         return trasitionsList;
                     }
+                    
+                    if (key.contains("dataCoverage"))
+                        return dataCoverage;
                     else
                         return null;
                 }
@@ -234,13 +242,13 @@ public class DataCoverageWindowController implements Initializable {
             columnDataInputList.add((String) mColumnInput.getCellObservableValue(item).getValue());
             columnDataExpectedValueList.add((String) mColumnExpectedValue.getCellObservableValue(item).getValue());
         }
-
+        
         dataCoverage.validateTest(trasitionsList, columnDataGuardList, columnDataInputList, columnDataExpectedValueList);
         DataCoverageResultTab mTabResult = new DataCoverageResultTab(dataCoverage.getResults());
-        dataTableRunTest.add(mTabResult);
+                dataTableRunTest.add(mTabResult);
 
         TableView mTableResult = mTabResult.createTable(dataTableRunTest);
-
+        
         mTabResult.setContent(mTableResult);
         mTabResult.setText("Results");
         mTabResult.setClosable(true);
