@@ -29,7 +29,6 @@
                                       <children>
                                           <Label contentDisplay="RIGHT" minHeight="0.0" text="Guard:" HBox.hgrow="ALWAYS" />
                                           <ComboBox fx:id="mGenCombo" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickGeneratorCombobox" />
-                                          <Button fx:id="mButtonGenHelp" mnemonicParsing="false" onAction="#onClickGenHelpButton" text="+" />
                                           <Label fx:id="mLabelGenParameter" contentDisplay="RIGHT" minHeight="0.0" text="Value" HBox.hgrow="ALWAYS">
                                               <padding>
                                                   <Insets left="10.0" />

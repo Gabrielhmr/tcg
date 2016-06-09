@@ -150,65 +150,6 @@ public class DataCoverageWindowController implements Initializable {
         System.err.println("Guard Selected: " + guard);
     }
 
-    @FXML
-    void onClickGenHelpButton(ActionEvent event) throws Exception {
-            
-            ResourceBundle rb = new ResourceBundle() {
-                
-                
-                @Override
-                protected Object handleGetObject(String key) {
-                    if (key.contains("transitions")) {
-                        return trasitionsList;
-                    }
-                    
-                    if (key.contains("component"))
-                        return mViewer.getComponent();
-                    else
-                        return null;
-                }
-
-                @Override
-                public Enumeration<String> getKeys() {
-                    throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-                }
-            };
-
-        
-        
-        URL location = getClass().getResource("AddGuard.fxml");
-
-        FXMLLoader loader = new FXMLLoader();
-
-        loader.setClassLoader(getClass().getClassLoader());
-        loader.setLocation(location);
-        loader.setBuilderFactory(new JavaFXBuilderFactory());
-        loader.setResources(rb);
-
-       // loader.setResources(rBundle);
-        
-        try{
-  
-            Parent root = (Parent) loader.load(location.openStream());
-
-            Scene scene = new Scene(root);
-            Stage window = new Stage(StageStyle.UTILITY);
-            window.initModality(Modality.APPLICATION_MODAL);
-
-            window.setResizable(false);
-            window.setMinWidth(300);
-            window.setMinHeight(250);
-            
-
-            window.setScene(scene);
-           
-            window.showAndWait();
-            System.out.println("Chamou?");
-
-        } catch (IOException e) {
-        }
-        
-    }
 
     @FXML
     void onSubmit(ActionEvent event) {
