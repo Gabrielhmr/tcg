@@ -22,7 +22,7 @@
                     <content>
                         <HBox>
                             <children>
-                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="474.0" spacing="6.0">
+                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="550.0" spacing="6.0">
                                       <padding>
                                           <Insets bottom="5.0" right="5.0" />
                                       </padding>
@@ -73,7 +73,7 @@
                                        </font>
                                     </Label>
                                     <Separator prefHeight="18.0" prefWidth="121.0" />
-                                    <ComboBox fx:id="mGenCombo1" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickGeneratorCombobox" prefHeight="25.0" prefWidth="121.0" />
+                                    <ComboBox fx:id="mGenComboTransition" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickGeneratorComboboxTransition" prefHeight="25.0" prefWidth="121.0" />
                                  </children>
                               </VBox>
                            </children>

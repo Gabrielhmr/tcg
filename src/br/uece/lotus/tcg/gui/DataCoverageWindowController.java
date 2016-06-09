@@ -11,10 +11,8 @@ import br.uece.lotus.tcg.dataCoverage.DataCoverage;
 import br.uece.lotus.tcg.struct.LtsInfo;
 import br.uece.lotus.tcg.utils.DebugLog;
 import br.uece.lotus.viewer.ComponentViewImpl;
-import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -22,11 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.fxml.JavaFXBuilderFactory;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -38,9 +32,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 
 /**
  *
@@ -86,6 +77,9 @@ public class DataCoverageWindowController implements Initializable {
 
     @FXML
     private ComboBox<String> mGenCombo;
+    
+    @FXML
+    private ComboBox<String> mGenComboTransition;
 
     @FXML
     private HBox mHboxGen;
@@ -118,23 +112,24 @@ public class DataCoverageWindowController implements Initializable {
         mTabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.SELECTED_TAB);
         dataCoverage = new DataCoverage();
 
-        initGuardInfo();
+        initComboBoxInfo();
     }
 
-    protected void initGuardInfo() {
+    protected void initComboBoxInfo() {
 
         trasitionsList = mViewer.getComponent().getTransitions();
         
         //trasitionsList = dataCoverage.getTransitions(mLtsInfo);
 
         for (Transition transition : trasitionsList) {
-           
             System.out.println(transition.getLabel());
             if (transition.getGuard() != null) {
                 
                 mGenCombo.getItems().add(transition.getGuard());
             }
+            mGenComboTransition.getItems().add(transition.getLabel());
         }
+        mGenComboTransition.setValue(mGenComboTransition.getItems().get(0));
         if (mGenCombo.getItems().size() > 0) {
             mGenCombo.setValue(mGenCombo.getItems().get(0));
         }
@@ -148,6 +143,17 @@ public class DataCoverageWindowController implements Initializable {
     void onClickGeneratorCombobox(ActionEvent event) {
         String guard = getSelectedGuard();
         System.err.println("Guard Selected: " + guard);
+    }
+    
+    
+    protected String getSelectedTransition() {
+        return mGenComboTransition.getSelectionModel().getSelectedItem();
+    }
+
+    @FXML
+    void onClickGeneratorComboboxTransition(ActionEvent event) {
+        String expectedValue = getSelectedTransition();
+        System.err.println("Expected Output Transition Selected: " + expectedValue);
     }
 
 
