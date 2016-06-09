@@ -22,7 +22,7 @@
                     <content>
                         <HBox>
                             <children>
-                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="548.0" spacing="6.0">
+                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="474.0" spacing="6.0">
                                       <padding>
                                           <Insets bottom="5.0" right="5.0" />
                                       </padding>
@@ -42,6 +42,7 @@
                                                      <Cursor fx:constant="DEFAULT" />
                                                   </cursor>
                                                </Button>
+                              <Button mnemonicParsing="false" text="Clear All" />
                               <Button fx:id="mButtonRunTest" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" defaultButton="true" layoutX="275.0" layoutY="43.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#onRunTest" text="Run Test" textAlignment="JUSTIFY">
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />
@@ -49,13 +50,13 @@
                               </Button>
                                       </children>
                                   </HBox>
-                        <HBox prefHeight="75.0" prefWidth="445.0">
+                        <HBox prefHeight="96.0" prefWidth="420.0">
                            <children>
-                              <TableView fx:id="mTableView" prefHeight="96.0" prefWidth="397.0">
+                              <TableView fx:id="mTableView" prefHeight="96.0" prefWidth="244.0">
                                 <columns>
+                                    <TableColumn minWidth="0.0" prefWidth="54.0" text="Id" />
                                   <TableColumn fx:id="mColumnGuard" prefWidth="75.0" text="Guard" />  
-                                  <TableColumn fx:id="mColumnInput" prefWidth="73.0" text="Input" />
-                                    <TableColumn fx:id="mColumnExpectedValue" prefWidth="67.0" text="Expected Value" />
+                                  <TableColumn fx:id="mColumnInput" prefWidth="62.0" text="Input" />
                                 </columns>
                                  <columnResizePolicy>
                                     <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -64,6 +65,17 @@
                                     <ColorAdjust />
                                  </effect>
                               </TableView>
+                              <VBox>
+                                 <children>
+                                    <Label contentDisplay="RIGHT" minHeight="0.0" prefHeight="17.0" prefWidth="104.0" text="Expected Output">
+                                       <font>
+                                          <Font name="System Bold" size="12.0" />
+                                       </font>
+                                    </Label>
+                                    <Separator prefHeight="18.0" prefWidth="121.0" />
+                                    <ComboBox fx:id="mGenCombo1" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickGeneratorCombobox" prefHeight="25.0" prefWidth="121.0" />
+                                 </children>
+                              </VBox>
                            </children>
                         </HBox>
                             </children>
