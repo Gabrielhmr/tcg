@@ -50,5 +50,18 @@ public final class ComparatorUtils {
         }
         return result;
     }
+    
+    public String split(String guard){
+        
+        String result = "Você digitou uma operação inválida.";
+        for (String operator : operators) {
+            if (guard.contains(operator)) {
+                String[] guardName = guard.split(operator);
+               result = guardName[0];
+               break;
+            }
+        }
+        return result;
+    }
 
 }
