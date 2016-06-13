@@ -7,6 +7,7 @@ package br.uece.lotus.tcg.gui;
 
 import br.uece.lotus.Component;
 import br.uece.lotus.Transition;
+import br.uece.lotus.tcg.dataCoverage.ComparatorUtils;
 import br.uece.lotus.tcg.dataCoverage.DataCoverage;
 import br.uece.lotus.tcg.struct.LtsInfo;
 import br.uece.lotus.tcg.utils.DebugLog;
@@ -124,8 +125,8 @@ public class DataCoverageWindowController implements Initializable {
         for (Transition transition : trasitionsList) {
             System.out.println(transition.getLabel());
             if (transition.getGuard() != null) {
-                
                 mGenCombo.getItems().add(transition.getGuard());
+                //mGenCombo.getItems().add(new ComparatorUtils().getGuardName(transition.getGuard()));
             }
             mGenComboTransition.getItems().add(transition.getLabel());
         }
@@ -134,8 +135,10 @@ public class DataCoverageWindowController implements Initializable {
             mGenCombo.setValue(mGenCombo.getItems().get(0));
         }
     }
-
+    
     protected String getSelectedGuard() {
+        //ComparatorUtils comparatorUtils = new ComparatorUtils();
+        //return comparatorUtils.getGuardName(mGenCombo.getSelectionModel().getSelectedItem());
         return mGenCombo.getSelectionModel().getSelectedItem();
     }
 
@@ -164,12 +167,13 @@ public class DataCoverageWindowController implements Initializable {
 
         if (!value.isEmpty()) {
             System.err.println("preenchendo colunas de table OnSubmit");
-            DataCoverageTest test = new DataCoverageTest(getSelectedGuard(), value, getSelectedGuard().replaceAll("\\D+", ""));
+            //DataCoverageTest test = new DataCoverageTest(getSelectedGuard(), value, getSelectedGuard().replaceAll("\\D+", ""));
+            DataCoverageTest test = new DataCoverageTest(getSelectedGuard(), value);
             dataTableSubmit.add(test);
 
             mColumnGuard.setCellValueFactory(new PropertyValueFactory<>("Guard"));
             mColumnInput.setCellValueFactory(new PropertyValueFactory<>("Input"));
-            mColumnExpectedValue.setCellValueFactory(new PropertyValueFactory<>("ExpectedValue"));
+            //mColumnExpectedValue.setCellValueFactory(new PropertyValueFactory<>("ExpectedValue"));
 
             mTableView.setItems(dataTableSubmit);
             mButtonRunTest.setDisable(false);       
@@ -181,19 +185,20 @@ public class DataCoverageWindowController implements Initializable {
     void onRunTest(ActionEvent event) {
         List<String> columnDataGuardList = new ArrayList<>();
         List<String> columnDataInputList = new ArrayList<>();
-        List<String> columnDataExpectedValueList = new ArrayList<>();
+        //List<String> columnDataExpectedValueList = new ArrayList<>();
 
         for (Object item : mTableView.getItems()) {
             columnDataGuardList.add((String) mColumnGuard.getCellObservableValue(item).getValue());
             columnDataInputList.add((String) mColumnInput.getCellObservableValue(item).getValue());
-            columnDataExpectedValueList.add((String) mColumnExpectedValue.getCellObservableValue(item).getValue());
+            //columnDataExpectedValueList.add((String) mColumnExpectedValue.getCellObservableValue(item).getValue());
         }
         
         //clear Result Table
         dataCoverage.getResults().clear();
         dataTableRunTest.clear();
         
-        dataCoverage.validateTest(trasitionsList, columnDataGuardList, columnDataInputList, columnDataExpectedValueList);
+        dataCoverage.validateTest(trasitionsList, columnDataGuardList, columnDataInputList);
+        //dataCoverage.validateTest(trasitionsList, columnDataGuardList, columnDataInputList, columnDataExpectedValueList);
         
         DataCoverageResultTab mTabResult = null;
         for (List<String> resultList : dataCoverage.getResults()) {
@@ -218,12 +223,12 @@ public class DataCoverageWindowController implements Initializable {
 
         private final SimpleStringProperty guard;
         private final SimpleStringProperty input;
-        private final SimpleStringProperty expectedValue;
+        //private final SimpleStringProperty expectedValue;
 
-        private DataCoverageTest(String guard, String input, String expectedValue) {
+        private DataCoverageTest(String guard, String input) {
             this.guard = new SimpleStringProperty(guard);
             this.input = new SimpleStringProperty(input);
-            this.expectedValue = new SimpleStringProperty(expectedValue);
+            //this.expectedValue = new SimpleStringProperty(expectedValue);
         }
 
         public String getGuard() {
@@ -242,12 +247,12 @@ public class DataCoverageWindowController implements Initializable {
             this.input.set(input);
         }
 
-        public String getExpectedValue() {
-            return expectedValue.get();
-        }
-
-        public void setExpectedValue(String expectedValue) {
-            this.expectedValue.set(expectedValue);
-        }
+//        public String getExpectedValue() {
+//            return expectedValue.get();
+//        }
+//
+//        public void setExpectedValue(String expectedValue) {
+//            this.expectedValue.set(expectedValue);
+//        }
     }
 }

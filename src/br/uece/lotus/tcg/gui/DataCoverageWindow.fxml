@@ -54,7 +54,6 @@
                            <children>
                               <TableView fx:id="mTableView" prefHeight="96.0" prefWidth="244.0">
                                 <columns>
-                                    <TableColumn minWidth="0.0" prefWidth="54.0" text="Id" />
                                   <TableColumn fx:id="mColumnGuard" prefWidth="75.0" text="Guard" />  
                                   <TableColumn fx:id="mColumnInput" prefWidth="62.0" text="Input" />
                                 </columns>

@@ -20,7 +20,8 @@ public final class ComparatorUtils {
      *
      * @return
      */
-    public boolean compare(String guard, String input, String expectedValue) {
+    public boolean compare(String guard, String input) {
+        String expectedValue = getGuardValue(guard);
         boolean result = false;
         for (String operator : operators) {
             if (guard.contains(operator)) {
@@ -51,13 +52,25 @@ public final class ComparatorUtils {
         return result;
     }
     
-    public String split(String guard){
+    public String getGuardName(String guard){
         
         String result = "Você digitou uma operação inválida.";
         for (String operator : operators) {
             if (guard.contains(operator)) {
                 String[] guardName = guard.split(operator);
                result = guardName[0];
+               break;
+            }
+        }
+        return result;
+    }
+
+    private String getGuardValue(String guard) {
+        String result = "Você digitou uma operação inválida.";
+        for (String operator : operators) {
+            if (guard.contains(operator)) {
+                String[] guardName = guard.split(operator);
+               result = guardName[1];
                break;
             }
         }
