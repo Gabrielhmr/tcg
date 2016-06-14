@@ -26,74 +26,75 @@ public class DataCoverage {
     List<List<String>> finalResultList = new ArrayList<>();
     private List<String> resultTab;
 
-    public List<Transition> getTransitions(LtsInfo mLtsInfo) {
+    public List<List<Transition>> getPathList(LtsInfo mLtsInfo, String testedTransition) {
+        List<List<Transition>> resultsPathList = new ArrayList<>();
         PathGenAllTransitions pathTransitions = new PathGenAllTransitions();
         TestBundle bundle = TestBundleBuilder.build(mLtsInfo, null, null);
         PathSet pathSet = pathTransitions.generate(mLtsInfo, bundle);
         if (pathSet.getPathList() != null) {
             for (List<Transition> path : pathSet.getPathList()) {
-                return path;
+                for (Transition transition : path) {
+                    if (transition.getLabel().equals(testedTransition)) {
+                        resultsPathList.add(path);
+                    }
+                }
             }
+            return resultsPathList;
         }
         return null;
     }
 
-    public void validateTest(Iterable<Transition> trasitionsList, List<String> columnDataGuardList, List<String> columnDataInputList) {
-        List<String> coveragedPath = new ArrayList<>();
-        boolean guardTest = true;
-        int row = 0;
-        for (Transition transition : trasitionsList) {
-            System.err.println("---current transition  action: " + transition.getLabel());
-            if (transition.getGuard() != null && transition.getGuard().equals(columnDataGuardList.get(row))) {
-                System.err.println("------Match in transition:" + transition.getLabel() + " e guarda:" + transition.getGuard() );
-                boolean testResult = new ComparatorUtils().compare(columnDataGuardList.get(row), columnDataInputList.get(row));
-                String resultMsg = (testResult) ? "True" : "False";
-                System.err.println("------HABILITOU, transitions seram adicionadas no coveragePath");
-                guardTest = true;
-                if (row < columnDataGuardList.size()) {
-                    System.err.println("------------- posiciona test para proxima guarda");
-                    row++;
+    public void validateTest(List<List<Transition>> resultPathList, List<String> columnDataGuardList, List<String> columnDataInputList) {
+        for (List<Transition> transitionList : resultPathList) {
+            for (Transition transition : transitionList) {
+                List<String> coveragedPath = new ArrayList<>();
+                int row = 0;
+                System.err.println("---current transition  action: " + transition.getLabel());
+                if (transition.getGuard() != null && transition.getGuard().equals(columnDataGuardList.get(row))) {
+                    System.err.println("------Match in transition:" + transition.getLabel() + " e guarda:" + transition.getGuard());
+                    boolean testResult = new ComparatorUtils().compare(columnDataGuardList.get(row), columnDataInputList.get(row));
+                    if (testResult == false) {
+                        resultTab = Arrays.asList(coveragedPath.toString(), "False");
+                        finalResultList.add(resultTab);
+                        break;
+                    } else if (row < columnDataGuardList.size()) {
+                        System.err.println("------------- posiciona test para proxima guarda");
+                        row++;
+                    } else {
+                        System.err.println("----------------finalizando");
+                        resultTab = Arrays.asList(coveragedPath.toString(), "True");
+                        finalResultList.add(resultTab);
+                        break;
+                    }
                 } else {
-                    System.err.println("----------------finalizando");
-                    resultTab = Arrays.asList(coveragedPath.toString(), transition.getLabel(), resultMsg);
-                    finalResultList.add(resultTab);
-                    break;
-                }
-            } else {
-                if (transition.getGuard() == null && guardTest) {
                     System.err.println("------adicionada transition no coverage path: " + transition.getLabel());
                     coveragedPath.add(transition.getLabel());
-                } else {
-                    System.err.println("------DESABILITOU transitions seram adicionadas no coveragePath");
-                    guardTest = false;
                 }
             }
         }
     }
-    
-    public void genCoverage(State stateInitial,List<String> columnDataGuardList){
-       //List<PathStruct> list = new ArrayList<>();
-       PathStruct path = new PathStruct();
-       
-       State currentState = stateInitial;
-       int row = 0;
-       for (Transition transition : currentState.getOutgoingTransitionsList()){        
-            if (transition.getGuard() != null && transition.getGuard().equals(columnDataGuardList.get(row))){
+
+    public void genCoverage(State stateInitial, List<String> columnDataGuardList) {
+        //List<PathStruct> list = new ArrayList<>();
+        PathStruct path = new PathStruct();
+
+        State currentState = stateInitial;
+        int row = 0;
+        for (Transition transition : currentState.getOutgoingTransitionsList()) {
+            if (transition.getGuard() != null && transition.getGuard().equals(columnDataGuardList.get(row))) {
                 if (row < columnDataGuardList.size()) {
                     row++; //se ainda tiver guarda pra ser testada
                     currentState = transition.getDestiny();
                 } else {
                     break; //retorna coverage path
                 }
-            }else{
+            } else {
                 //add currente transition to coverage path
                 currentState = transition.getDestiny();
             }
-          
-           
-               
-           }
-    
+
+        }
+
     }
 
     public List<List<String>> getResults() {
