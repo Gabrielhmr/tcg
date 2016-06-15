@@ -23,24 +23,24 @@ public class DataCoverageResultTab extends Tab{
     private TableColumn<DataCoverageResultTab,String> mResultMsgCollumn;
     private TableView mTableView;
     private final String coveragedPath;
-    private final String finalTransition;
+    //private final String finalTransition;
     private final String resultMsg;
     
     
     
     DataCoverageResultTab(List<String> resultTab) {
         coveragedPath = resultTab.get(0);
-        finalTransition = resultTab.get(1);
-        resultMsg = resultTab.get(2);
+        //finalTransition = resultTab.get(1);
+        resultMsg = resultTab.get(1);
     }
     
     public String getCoveragedPath(){
            return coveragedPath; 
     }
     
-    public String getFinalTransition(){
-           return finalTransition; 
-    }
+//    public String getFinalTransition(){
+//           return finalTransition; 
+//    }
     
     public String getResultMsg(){
            return resultMsg; 
@@ -50,14 +50,14 @@ public class DataCoverageResultTab extends Tab{
     public TableView createTable(ObservableList<DataCoverageResultTab> dataTableRunTest) {
         
         mCoveragedPathCollumn = new TableColumn<>("Coveraged Path");
-        mFinalTransitionCollumn = new TableColumn<>("Final Transition");
+        //mFinalTransitionCollumn = new TableColumn<>("Final Transition");
         mResultMsgCollumn = new TableColumn<>("Result");
         
         mCoveragedPathCollumn.setCellValueFactory(new PropertyValueFactory<>("CoveragedPath"));
         mCoveragedPathCollumn.setPrefWidth(400);
        
-        mFinalTransitionCollumn.setCellValueFactory(new PropertyValueFactory<>("FinalTransition"));
-        mFinalTransitionCollumn.setPrefWidth(200);
+        //mFinalTransitionCollumn.setCellValueFactory(new PropertyValueFactory<>("FinalTransition"));
+        //mFinalTransitionCollumn.setPrefWidth(200);
         
         mResultMsgCollumn.setCellValueFactory(new PropertyValueFactory<>("ResultMsg"));
         mResultMsgCollumn.setPrefWidth(200);
@@ -67,7 +67,7 @@ public class DataCoverageResultTab extends Tab{
         mTableView.setPrefHeight(500);
         //mActionsCollumn.setSortType(TableColumn.SortType.DESCENDING);
         //mWeightCollumn.setSortType(TableColumn.SortType.DESCENDING);
-        mTableView.getColumns().addAll(mCoveragedPathCollumn, mFinalTransitionCollumn,mResultMsgCollumn);
+        mTableView.getColumns().addAll(mCoveragedPathCollumn,mResultMsgCollumn);
         //mMainVbox.getChildren().add(mTableView);
         mTableView.setItems(dataTableRunTest);
         
