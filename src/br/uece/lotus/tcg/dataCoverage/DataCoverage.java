@@ -28,6 +28,7 @@ public class DataCoverage {
 
     public List<List<Transition>> getPathList(LtsInfo mLtsInfo, String testedTransition) {
         List<List<Transition>> resultsPathList = new ArrayList<>();
+        List<List<Transition>> possibleResultsPathList = new ArrayList<>();
         PathGenAllTransitions pathTransitions = new PathGenAllTransitions();
         TestBundle bundle = TestBundleBuilder.build(mLtsInfo, null, null);
         PathSet pathSet = pathTransitions.generate(mLtsInfo, bundle);
@@ -36,12 +37,34 @@ public class DataCoverage {
                 for (Transition transition : path) {
                     if (transition.getLabel().equals(testedTransition)) {
                         resultsPathList.add(path);
+                    }else{
+                       possibleResultsPathList.add(path);
                     }
                 }
             }
-            return resultsPathList;
+            return findMorePath(resultsPathList, possibleResultsPathList);
         }
         return null;
+    }
+
+    private List<List<Transition>> findMorePath(List<List<Transition>> resultsPathList, List<List<Transition>> possibleResultsPathList) {
+        List<List<Transition>> finalList = resultsPathList;
+        for (List<Transition> possibleResultlist : possibleResultsPathList) {
+            for (List<Transition> resultList : resultsPathList) {
+                Transition previous = resultList.get(resultList.size() - 2 );
+                if (possibleResultlist.contains(previous)){
+                    int position = possibleResultlist.indexOf(previous);
+                    possibleResultlist.remove(position + 1);
+                    possibleResultlist.add(position + 1, resultList.get(resultList.size() - 1 ));
+                    finalList.add(possibleResultlist);
+                }
+            }
+    
+            
+        }
+        
+        return null;
+        
     }
 
     public void validateTest(List<List<Transition>> resultPathList, List<String> columnDataGuardList, List<String> columnDataInputList) {
@@ -101,5 +124,7 @@ public class DataCoverage {
         System.err.println("Criando result Table");
         return finalResultList;
     }
+
+    
 
 }
