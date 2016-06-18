@@ -23,24 +23,17 @@ public class DataCoverageResultTab extends Tab{
     private TableColumn<DataCoverageResultTab,String> mResultMsgCollumn;
     private TableView mTableView;
     private final String coveragedPath;
-    //private final String finalTransition;
     private final String resultMsg;
-    
     
     
     DataCoverageResultTab(List<String> resultTab) {
         coveragedPath = resultTab.get(0);
-        //finalTransition = resultTab.get(1);
         resultMsg = resultTab.get(1);
     }
     
     public String getCoveragedPath(){
            return coveragedPath; 
     }
-    
-//    public String getFinalTransition(){
-//           return finalTransition; 
-//    }
     
     public String getResultMsg(){
            return resultMsg; 
@@ -50,18 +43,13 @@ public class DataCoverageResultTab extends Tab{
     public TableView createTable(ObservableList<DataCoverageResultTab> dataTableRunTest) {
         
         mCoveragedPathCollumn = new TableColumn<>("Coveraged Path");
-        //mFinalTransitionCollumn = new TableColumn<>("Final Transition");
         mResultMsgCollumn = new TableColumn<>("Result");
         
         mCoveragedPathCollumn.setCellValueFactory(new PropertyValueFactory<>("CoveragedPath"));
         mCoveragedPathCollumn.setPrefWidth(400);
-       
-        //mFinalTransitionCollumn.setCellValueFactory(new PropertyValueFactory<>("FinalTransition"));
-        //mFinalTransitionCollumn.setPrefWidth(200);
         
         mResultMsgCollumn.setCellValueFactory(new PropertyValueFactory<>("ResultMsg"));
         mResultMsgCollumn.setPrefWidth(200);
-        
         
         mTableView = new TableView();
         mTableView.setPrefHeight(500);
