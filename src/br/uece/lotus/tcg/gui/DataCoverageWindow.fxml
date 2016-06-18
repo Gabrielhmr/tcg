@@ -42,7 +42,7 @@
                                                      <Cursor fx:constant="DEFAULT" />
                                                   </cursor>
                                                </Button>
-                              <Button mnemonicParsing="false" text="Clear All" />
+                              <Button fx:id="mButtonClear" mnemonicParsing="false" onAction="#onClear" text="Clear All" />
                               <Button fx:id="mButtonRunTest" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" defaultButton="true" layoutX="275.0" layoutY="43.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#onRunTest" text="Run Test" textAlignment="JUSTIFY">
                                  <cursor>
                                     <Cursor fx:constant="DEFAULT" />

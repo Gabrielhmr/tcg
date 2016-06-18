@@ -50,7 +50,7 @@ public class DataCoverageWindowController implements Initializable {
     private Button mButtonSubmit;
 
     @FXML
-    private Button mButtonGenHelp;
+    private Button mButtonClear;
 
     @FXML
     private Label mLabelGenParameter;
@@ -148,7 +148,6 @@ public class DataCoverageWindowController implements Initializable {
         System.err.println("Guard Selected: " + guard);
     }
     
-    
     protected String getSelectedTransition() {
         return mGenComboTransition.getSelectionModel().getSelectedItem();
     }
@@ -158,7 +157,6 @@ public class DataCoverageWindowController implements Initializable {
         String expectedValue = getSelectedTransition();
         System.err.println("Expected Output Transition Selected: " + expectedValue);
     }
-
 
     @FXML
     void onSubmit(ActionEvent event) {
@@ -178,7 +176,13 @@ public class DataCoverageWindowController implements Initializable {
         }
 
     }
-
+    
+    @FXML
+    void onClear(ActionEvent event){
+        mTableView.getItems().clear();
+        mButtonRunTest.setDisable(true);
+    }
+    
     @FXML
     void onRunTest(ActionEvent event) {
         List<String> columnDataGuardList = new ArrayList<>();
@@ -212,8 +216,6 @@ public class DataCoverageWindowController implements Initializable {
         mTabPane.getTabs().add(mTabResult);
         
         mButtonRunTest.setDisable(true);
-       
-        //////delete////////mTableResult.getSelectionModel().clearSelection();
     }
 
     public static class DataCoverageTest {

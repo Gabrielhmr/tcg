@@ -75,6 +75,9 @@ public class DataCoverage {
 
     public List<List<String>> getResults() {
         System.err.println("Criando result Table");
+        if(finalResultList.isEmpty()){
+            finalResultList.add(Arrays.asList("Nenhum caminho possivel", "False"));
+        }
         return finalResultList;
     }
 }
