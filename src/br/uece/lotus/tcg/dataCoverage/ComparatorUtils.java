@@ -80,7 +80,7 @@ public final class ComparatorUtils {
         for (String guard : guardList) {
             if (getGuardName(guard).equals(guardName)) {
                 if(compare(guard, value)){
-                    System.err.println("****Guarda escolhida");
+                    System.err.println("****Guarda escolhida: " + guard);
                     return guard;
                 }
             }

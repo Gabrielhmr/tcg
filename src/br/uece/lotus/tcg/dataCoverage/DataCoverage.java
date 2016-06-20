@@ -51,16 +51,18 @@ public class DataCoverage {
                 if (transition.getGuard() == null || columnDataGuardList.contains(transition.getGuard())) {
                     coveragedPath.add(transition.getLabel());
                     if (columnDataGuardList.contains(transition.getGuard())) {
-                        int row = columnDataGuardList.indexOf(transition.getGuard());
-                        testResult = new ComparatorUtils().compare(columnDataGuardList.get(row), columnDataInputList.get(row));
-                        if(!testResult) {
-                           System.err.println("---input diferente on trasition: " + transition.getLabel()); 
-                           break;
-                        }
+                          testResult = true;
+//                        int row = columnDataGuardList.indexOf(transition.getGuard());
+//                        testResult = new ComparatorUtils().compare(columnDataGuardList.get(row), columnDataInputList.get(row));
+//                        if(!testResult) {
+//                           System.err.println("---input diferente on trasition: " + transition.getLabel()); 
+//                           break;
+//                        }
                     }
                 } else {
                     System.err.println("---transition com guarda nao testada no submit... " + transition.getLabel());
-                    diffGuard = true;
+                    //diffGuard = true;
+                    testResult = false;
                     break;
                 }
             }
