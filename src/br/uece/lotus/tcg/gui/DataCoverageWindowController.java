@@ -92,6 +92,8 @@ public class DataCoverageWindowController implements Initializable {
     private DataCoverage dataCoverage;
 
     private Iterable<Transition> trasitionsList;
+    
+    private List<String> guardList;
 
     private final ObservableList<DataCoverageTest> dataTableSubmit = FXCollections.observableArrayList();
 
@@ -119,14 +121,16 @@ public class DataCoverageWindowController implements Initializable {
     protected void initComboBoxInfo() {
 
         trasitionsList = mViewer.getComponent().getTransitions();
-        
-        //trasitionsList = dataCoverage.getTransitions(mLtsInfo);
 
         for (Transition transition : trasitionsList) {
             System.out.println(transition.getLabel());
             if (transition.getGuard() != null) {
-                mGenCombo.getItems().add(transition.getGuard());
-                //mGenCombo.getItems().add(new ComparatorUtils().getGuardName(transition.getGuard()));
+                //mGenCombo.getItems().add(transition.getGuard());
+                guardList.add(transition.getGuard());
+                String guardName = new ComparatorUtils().getGuardName(transition.getGuard());
+                if (!mGenCombo.getItems().contains(guardName)) {
+                    mGenCombo.getItems().add(guardName);
+                }
             }
             mGenComboTransition.getItems().add(transition.getLabel());
         }
@@ -185,13 +189,11 @@ public class DataCoverageWindowController implements Initializable {
     
     @FXML
     void onRunTest(ActionEvent event) {
+        
         List<String> columnDataGuardList = new ArrayList<>();
         List<String> columnDataInputList = new ArrayList<>();
-
-        for (Object item : mTableView.getItems()) {
-            columnDataGuardList.add((String) mColumnGuard.getCellObservableValue(item).getValue());
-            columnDataInputList.add((String) mColumnInput.getCellObservableValue(item).getValue());
-        }
+        formatGuardTable(columnDataGuardList,columnDataInputList);
+        
         
         //clear Result Table
         dataCoverage.getResults().clear();
@@ -216,6 +218,16 @@ public class DataCoverageWindowController implements Initializable {
         mTabPane.getTabs().add(mTabResult);
         
         mButtonRunTest.setDisable(true);
+    }
+
+    private void formatGuardTable(List<String> columnDataGuardList,List<String> columnDataInputList) {
+        for (Object item : mTableView.getItems()) {
+            String guardName = (String) mColumnGuard.getCellObservableValue(item).getValue();
+            String values = (String) mColumnInput.getCellObservableValue(item).getValue();
+            guardName = new ComparatorUtils().getGuardByName(guardName,values,guardList);
+            columnDataGuardList.add(guardName);
+            columnDataInputList.add(values);
+        }
     }
 
     public static class DataCoverageTest {

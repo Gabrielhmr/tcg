@@ -13,7 +13,7 @@ import java.util.List;
  * @author Gabriel
  */
 public final class ComparatorUtils {
-  
+
     List<String> operators = Arrays.asList("==", "!=", ">", "<", ">=", "<=");
 
     /**
@@ -27,7 +27,7 @@ public final class ComparatorUtils {
             if (guard.contains(operator)) {
                 switch (operator) {
                     case "==":
-                        result =  input.equals(expectedValue);
+                        result = input.equals(expectedValue);
                         break;
                     case "!=":
                         result = !input.equals(expectedValue);
@@ -51,15 +51,14 @@ public final class ComparatorUtils {
         }
         return result;
     }
-    
-    public String getGuardName(String guard){
-        
+
+    public String getGuardName(String guard) {
         String result = "Você digitou uma operação inválida.";
         for (String operator : operators) {
             if (guard.contains(operator)) {
                 String[] guardName = guard.split(operator);
-               result = guardName[0];
-               break;
+                result = guardName[0];
+                break;
             }
         }
         return result;
@@ -70,11 +69,22 @@ public final class ComparatorUtils {
         for (String operator : operators) {
             if (guard.contains(operator)) {
                 String[] guardName = guard.split(operator);
-               result = guardName[1];
-               break;
+                result = guardName[1];
+                break;
             }
         }
         return result;
     }
 
+    public String getGuardByName(String guardName, String value, List<String> guardList) {
+        for (String guard : guardList) {
+            if (getGuardName(guard).equals(guardName)) {
+                if(compare(guard, value)){
+                    System.err.println("****Guarda escolhida");
+                    return guard;
+                }
+            }
+        }
+        return null;
+    }
 }
