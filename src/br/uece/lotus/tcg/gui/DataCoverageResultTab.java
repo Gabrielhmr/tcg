@@ -19,7 +19,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 public class DataCoverageResultTab extends Tab{
     
     private TableColumn<DataCoverageResultTab,String> mCoveragedPathCollumn;
-    private TableColumn<DataCoverageResultTab,String> mFinalTransitionCollumn;
     private TableColumn<DataCoverageResultTab,String> mResultMsgCollumn;
     private TableView mTableView;
     private final String coveragedPath;

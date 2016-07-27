@@ -93,7 +93,7 @@ public class DataCoverageWindowController implements Initializable {
 
     private Iterable<Transition> trasitionsList;
     
-    private List<String> guardList;
+    private List<String> guardList = new ArrayList<>();
 
     private final ObservableList<DataCoverageTest> dataTableSubmit = FXCollections.observableArrayList();
 
@@ -222,10 +222,10 @@ public class DataCoverageWindowController implements Initializable {
 
     private void formatGuardTable(List<String> columnDataGuardList,List<String> columnDataInputList) {
         for (Object item : mTableView.getItems()) {
-            String guardName = (String) mColumnGuard.getCellObservableValue(item).getValue();
+            String guardNames = (String) mColumnGuard.getCellObservableValue(item).getValue();
             String values = (String) mColumnInput.getCellObservableValue(item).getValue();
-            guardName = new ComparatorUtils().getGuardByName(guardName,values,guardList);
-            columnDataGuardList.add(guardName);
+            guardNames = new ComparatorUtils().getGuardByName(guardNames,values,guardList);
+            columnDataGuardList.add(guardNames);
             columnDataInputList.add(values);
         }
     }
