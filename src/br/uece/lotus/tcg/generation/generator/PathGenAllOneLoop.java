@@ -28,7 +28,7 @@ public class PathGenAllOneLoop extends PathGenAllFreeLoop{
             
             State lastState = t.getDestiny();
 
-            if (!path.getVisitedStates().contains(lastState) || path.getRepeatedStatesCount() == 0){
+            if (!path.getVisitedStates().contains(lastState) || path.getRepeatedStatesCount() <= 1){
                 
                 PathStruct newPath = new PathStruct(path);
                 newPath.addTransition(t);
