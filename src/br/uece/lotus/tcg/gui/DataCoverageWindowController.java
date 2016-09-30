@@ -9,11 +9,13 @@ import br.uece.lotus.Component;
 import br.uece.lotus.Transition;
 import br.uece.lotus.tcg.dataCoverage.ComparatorUtils;
 import br.uece.lotus.tcg.dataCoverage.DataCoverage;
+import br.uece.lotus.tcg.generation.generator.OneLoopPath;
 import br.uece.lotus.tcg.struct.LtsInfo;
 import br.uece.lotus.tcg.utils.DebugLog;
 import br.uece.lotus.viewer.ComponentViewImpl;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.property.SimpleStringProperty;
@@ -108,6 +110,12 @@ public class DataCoverageWindowController implements Initializable {
 
         Component component = (Component) resources.getObject("component");
         mViewer.setComponent(component);
+        
+        //teste all one loop path novo
+        
+        OneLoopPath olp = new OneLoopPath();
+        System.out.println("novo all one loop: ");
+        System.err.println(olp.createOneLoopPath(component));
 
         mLtsInfo = new LtsInfo(component.getInitialState());
         mButtonRunTest.setDisable(true);
