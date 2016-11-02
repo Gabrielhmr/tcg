@@ -5,6 +5,7 @@ import br.uece.lotus.Component;
 import java.util.ArrayList;
 import br.uece.lotus.State;
 import br.uece.lotus.Transition;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -23,7 +24,7 @@ public class OneLoopPath {
     ArrayList<String> paths = new ArrayList<>();
     String tempPath = "";
 
-    public  ArrayList<String> createOneLoopPath(Component component){
+    public  List<List<Transition>> createOneLoopPath(Component component){
         mComponent = component;
         transitions = (List<Transition>) component.getTransitions();
         initialState= component.getInitialState();
@@ -40,8 +41,29 @@ public class OneLoopPath {
         tempLoop.add(initialState.getID());
         findPaths(initialState.getID());
         tempLoop.clear();
+        
+        ///formatando path pra lista de transition
+        
+        List<List<Transition>> resultsPathList = new ArrayList<>();
+        Iterable<Transition> trasitionsList = component.getTransitions();
+        
+        for (String path : paths) {
+            List<String> list = new ArrayList<>(Arrays.asList(path.split(",")));
+            List<Transition> pathTransitions = new ArrayList<>();
+            for (String p : list) {
+                System.err.println("######### path: "+ p );
+                for (Transition transition : trasitionsList) {
+                    if(p.equals(transition.getLabel())){
+                        pathTransitions.add(transition);
+                        break;
+                    }
+                }
+            }
+            
+            resultsPathList.add(pathTransitions);
+         }
 
-        return paths;
+        return resultsPathList;
     }
 
     private void findPaths(int v) {

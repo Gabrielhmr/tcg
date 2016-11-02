@@ -6,6 +6,7 @@
 package br.uece.lotus.tcg.gui;
 
 import br.uece.lotus.Component;
+import br.uece.lotus.State;
 import br.uece.lotus.Transition;
 import br.uece.lotus.tcg.dataCoverage.ComparatorUtils;
 import br.uece.lotus.tcg.dataCoverage.DataCoverage;
@@ -111,12 +112,7 @@ public class DataCoverageWindowController implements Initializable {
         Component component = (Component) resources.getObject("component");
         mViewer.setComponent(component);
         
-        //teste all one loop path novo
-        
-        OneLoopPath olp = new OneLoopPath();
-        System.out.println("novo all one loop: ");
-        System.err.println(olp.createOneLoopPath(component));
-
+       
         mLtsInfo = new LtsInfo(component.getInitialState());
         mButtonRunTest.setDisable(true);
 
@@ -207,7 +203,7 @@ public class DataCoverageWindowController implements Initializable {
         dataCoverage.getResults().clear();
         dataTableRunTest.clear();
         
-        List<List<Transition>> pathList = dataCoverage.getPathList(mLtsInfo,getSelectedTransition());
+        List<List<Transition>> pathList = dataCoverage.getPathList(mViewer.getComponent(),getSelectedTransition());
         
         dataCoverage.validateTest(pathList, columnDataGuardList, columnDataInputList);
         

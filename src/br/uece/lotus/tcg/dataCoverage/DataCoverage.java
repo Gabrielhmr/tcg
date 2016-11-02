@@ -5,8 +5,10 @@
  */
 package br.uece.lotus.tcg.dataCoverage;
 
+import br.uece.lotus.Component;
 import br.uece.lotus.Transition;
 import br.uece.lotus.tcg.TestBundleBuilder;
+import br.uece.lotus.tcg.generation.generator.OneLoopPath;
 import br.uece.lotus.tcg.generation.generator.PathGenAllOneLoop;
 import br.uece.lotus.tcg.struct.LtsInfo;
 import br.uece.lotus.tcg.struct.PathSet;
@@ -24,20 +26,22 @@ public class DataCoverage {
     List<List<String>> finalResultList = new ArrayList<>();
     private List<String> resultTab;
 
-    public List<List<Transition>> getPathList(LtsInfo mLtsInfo, String testedTransition) {
-        List<List<Transition>> resultsPathList = new ArrayList<>();
-        PathGenAllOneLoop pathTransitions = new PathGenAllOneLoop();
-        TestBundle bundle = TestBundleBuilder.build(mLtsInfo, null, null);
-        PathSet pathSet = pathTransitions.generate(mLtsInfo, bundle);
-        if (pathSet.getPathList() != null) {
-            for (List<Transition> path : pathSet.getPathList()) {
+    public List<List<Transition>> getPathList(Component component, String testedTransition) {
+        OneLoopPath olp = new OneLoopPath();
+        List<List<Transition>> AllPathList = olp.createOneLoopPath(component);
+        System.err.println("all transition size: " + AllPathList.size());
+        List<List<Transition>> resultsList = new ArrayList<>();
+        if (AllPathList != null) {
+            for (List<Transition> path : AllPathList) {
                 for (Transition transition : path) {
                     if (transition.getLabel().equals(testedTransition)) {
-                        resultsPathList.add(path);
+                        resultsList.add(path);
+                        break;
                     }
                 }
             }
-            return resultsPathList;
+            System.err.println("all result size:"+resultsList.size());
+            return resultsList;
         }
         return null;
     }
