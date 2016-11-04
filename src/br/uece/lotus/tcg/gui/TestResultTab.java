@@ -3,6 +3,7 @@ package br.uece.lotus.tcg.gui;
 import br.uece.lotus.Component;
 import br.uece.lotus.State;
 import br.uece.lotus.Transition;
+import br.uece.lotus.tcg.generation.generator.OneLoopPath;
 import br.uece.lotus.tcg.struct.PathSet;
 import br.uece.lotus.tcg.struct.ResultInfo;
 import java.io.File;
@@ -58,17 +59,28 @@ public class TestResultTab extends Tab{
     protected ObservableList<TestResultTab.PathView> mPathList = FXCollections.observableArrayList();
 
     TestResultTab(Component component, ResultInfo result){
-        
+       
         mComponent = component;
         PathSet pathSet = result.getPathSet();
-
-        if (pathSet.getPathList() != null){            
-            for (List<Transition> path : pathSet.getPathList()){
+        if(result.getGeneratorName().equals("All One Loop Paths")){
+            OneLoopPath olp = new OneLoopPath();
+            List<List<Transition>> AllPathList = olp.createOneLoopPath(component);
+            for (List<Transition> path : AllPathList){
                 PathView pv = new PathView(path);
                 pv.setPathWeight(pathSet.getPathWeightMap().get(path));
                 mPathList.add(pv);
             }
+        }else{
+            if (pathSet.getPathList() != null){            
+                for (List<Transition> path : pathSet.getPathList()){
+                    PathView pv = new PathView(path);
+                    pv.setPathWeight(pathSet.getPathWeightMap().get(path));
+                    mPathList.add(pv);
+                }
+            }
         }
+        
+        
 
         mGeneratorLabel = new Label(GENERATOR_STRING + " " + result.getGeneratorName());
         mSelectorLabel = new Label(SELECTOR_STRING + " " + result.getSelectorName());
