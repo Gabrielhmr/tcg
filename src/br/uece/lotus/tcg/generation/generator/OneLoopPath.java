@@ -51,7 +51,7 @@ public class OneLoopPath {
             List<String> list = new ArrayList<>(Arrays.asList(path.split(",")));
             List<Transition> pathTransitions = new ArrayList<>();
             for (String p : list) {
-                System.err.println("######### path: "+ p );
+               // System.err.println("######### path: "+ p );
                 for (Transition transition : trasitionsList) {
                     if(p.equals(transition.getLabel())){
                         pathTransitions.add(transition);

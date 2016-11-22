@@ -25,8 +25,10 @@ public class DataCoverage {
 
     List<List<String>> finalResultList = new ArrayList<>();
     private List<String> resultTab;
+    private String expectedOutput;
 
     public List<List<Transition>> getPathList(Component component, String testedTransition) {
+        expectedOutput = testedTransition;
         OneLoopPath olp = new OneLoopPath();
         List<List<Transition>> AllPathList = olp.createOneLoopPath(component);
         System.err.println("all transition size: " + AllPathList.size());
@@ -34,46 +36,42 @@ public class DataCoverage {
         if (AllPathList != null) {
             for (List<Transition> path : AllPathList) {
                 for (Transition transition : path) {
-                    if (transition.getLabel().equals(testedTransition)) {
+                    if (transition.getLabel().equals(expectedOutput)) {
                         resultsList.add(path);
                         break;
                     }
                 }
             }
-            System.err.println("all result size:"+resultsList.size());
+            System.err.println("all result size:" + resultsList.size());
             return resultsList;
         }
         return null;
     }
 
-    public void validateTest(List<List<Transition>> resultPathList, List<String> columnDataGuardList, List<String> columnDataInputList) {
+    public void validateTest(List<List<Transition>> resultPathList, List<String> columnDataGuardList) {
         for (List<Transition> transitionList : resultPathList) {
             List<String> coveragedPath = new ArrayList<>();
-            boolean diffGuard = false;
-            boolean testResult = true;    
+            boolean testResult = true;
+            System.err.println("expectedOutput: " + expectedOutput);
+
             for (Transition transition : transitionList) {
-                if (transition.getGuard() == null || columnDataGuardList.contains(transition.getGuard())) {
-                    coveragedPath.add(transition.getLabel());
-                    if (columnDataGuardList.contains(transition.getGuard())) {
-                          testResult = true;
-//                        int row = columnDataGuardList.indexOf(transition.getGuard());
-//                        testResult = new ComparatorUtils().compare(columnDataGuardList.get(row), columnDataInputList.get(row));
-//                        if(!testResult) {
-//                           System.err.println("---input diferente on trasition: " + transition.getLabel()); 
-//                           break;
-//                        }
+                if (!transition.getLabel().equals(expectedOutput)) {
+                    if (transition.getGuard() == null || columnDataGuardList.contains(transition.getGuard())) {
+                        coveragedPath.add(transition.getLabel());
+                    } else {
+                        System.err.println("---transition com guarda nao testada no submit... " + transition.getLabel());
+                        testResult = false;
+                        break;
                     }
                 } else {
-                    System.err.println("---transition com guarda nao testada no submit... " + transition.getLabel());
-                    //diffGuard = true;
-                    testResult = false;
+                    coveragedPath.add(transition.getLabel());
                     break;
                 }
+
             }
-            if (diffGuard == false) {
+            if (testResult == true) {
                 System.err.println("---lista adicionada");
-                String result = (testResult) ? "True" : "False"; 
-                resultTab = Arrays.asList(coveragedPath.toString(), result);
+                resultTab = Arrays.asList(coveragedPath.toString(), "True");
                 finalResultList.add(resultTab);
             }
         }
@@ -81,7 +79,7 @@ public class DataCoverage {
 
     public List<List<String>> getResults() {
         System.err.println("Criando result Table");
-        if(finalResultList.isEmpty()){
+        if (finalResultList.isEmpty()) {
             finalResultList.add(Arrays.asList("Nenhum caminho possivel", "False"));
         }
         return finalResultList;

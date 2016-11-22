@@ -205,7 +205,7 @@ public class DataCoverageWindowController implements Initializable {
         
         List<List<Transition>> pathList = dataCoverage.getPathList(mViewer.getComponent(),getSelectedTransition());
         
-        dataCoverage.validateTest(pathList, columnDataGuardList, columnDataInputList);
+        dataCoverage.validateTest(pathList, columnDataGuardList);
         
         DataCoverageResultTab mTabResult = null;
         for (List<String> resultList : dataCoverage.getResults()) {

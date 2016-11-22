@@ -49,6 +49,7 @@ public class DataCoverageResultTab extends Tab{
         
         mResultMsgCollumn.setCellValueFactory(new PropertyValueFactory<>("ResultMsg"));
         mResultMsgCollumn.setPrefWidth(200);
+        mResultMsgCollumn.setStyle("-fx-background-color: #a6ff4d");
         
         mTableView = new TableView();
         mTableView.setPrefHeight(500);
