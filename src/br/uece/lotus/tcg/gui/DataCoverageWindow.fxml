@@ -22,7 +22,7 @@
                     <content>
                         <HBox>
                             <children>
-                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="550.0" spacing="6.0">
+                                  <HBox fx:id="mHboxGen" alignment="CENTER_LEFT" minHeight="0.0" prefHeight="96.0" prefWidth="414.0" spacing="6.0">
                                       <padding>
                                           <Insets bottom="5.0" right="5.0" />
                                       </padding>
@@ -43,16 +43,11 @@
                                                   </cursor>
                                                </Button>
                               <Button fx:id="mButtonClear" mnemonicParsing="false" onAction="#onClear" text="Clear All" />
-                              <Button fx:id="mButtonRunTest" alignment="BOTTOM_RIGHT" contentDisplay="RIGHT" defaultButton="true" layoutX="275.0" layoutY="43.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#onRunTest" text="Run Test" textAlignment="JUSTIFY">
-                                 <cursor>
-                                    <Cursor fx:constant="DEFAULT" />
-                                 </cursor>
-                              </Button>
                                       </children>
                                   </HBox>
-                        <HBox prefHeight="96.0" prefWidth="420.0">
+                        <HBox prefHeight="96.0" prefWidth="417.0">
                            <children>
-                              <TableView fx:id="mTableView" prefHeight="96.0" prefWidth="244.0">
+                              <TableView fx:id="mTableView" prefHeight="96.0" prefWidth="220.0">
                                 <columns>
                                   <TableColumn fx:id="mColumnGuard" prefWidth="75.0" text="Guard" />  
                                   <TableColumn fx:id="mColumnInput" prefWidth="62.0" text="Input" />
@@ -64,7 +59,7 @@
                                     <ColorAdjust />
                                  </effect>
                               </TableView>
-                              <VBox>
+                              <VBox prefHeight="96.0" prefWidth="136.0">
                                  <children>
                                     <Label contentDisplay="RIGHT" minHeight="0.0" prefHeight="17.0" prefWidth="104.0" text="Expected Output">
                                        <font>
@@ -75,6 +70,11 @@
                                     <ComboBox fx:id="mGenComboTransition" maxWidth="1.7976931348623157E308" minWidth="-Infinity" onAction="#onClickGeneratorComboboxTransition" prefHeight="25.0" prefWidth="121.0" />
                                  </children>
                               </VBox>
+                              <Button fx:id="mButtonRunTest" alignment="TOP_LEFT" contentDisplay="BOTTOM" defaultButton="true" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onAction="#onRunTest" prefHeight="25.0" prefWidth="78.0" text="Run Test" textAlignment="JUSTIFY">
+                                 <cursor>
+                                    <Cursor fx:constant="DEFAULT" />
+                                 </cursor>
+                              </Button>
                            </children>
                         </HBox>
                             </children>
