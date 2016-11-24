@@ -136,7 +136,7 @@ public class DataCoverageWindowController implements Initializable {
                     mGenCombo.getItems().add(guardName);
                 }
             }
-            mGenComboTransition.getItems().add(transition.getLabel());
+            mGenComboTransition.getItems().add(formatExpectedOutput(transition));
         }
         mGenComboTransition.setValue(mGenComboTransition.getItems().get(0));
         if (mGenCombo.getItems().size() > 0) {
@@ -144,9 +144,11 @@ public class DataCoverageWindowController implements Initializable {
         }
     }
     
+    private String  formatExpectedOutput(Transition transition){
+        return transition.getLabel() + " " + transition.getSource().getLabel() + " - " + transition.getDestiny().getLabel();
+    }
+    
     protected String getSelectedGuard() {
-        //ComparatorUtils comparatorUtils = new ComparatorUtils();
-        //return comparatorUtils.getGuardName(mGenCombo.getSelectionModel().getSelectedItem());
         return mGenCombo.getSelectionModel().getSelectedItem();
     }
 

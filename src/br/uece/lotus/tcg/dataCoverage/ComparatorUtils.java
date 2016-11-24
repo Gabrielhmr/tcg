@@ -5,6 +5,7 @@
  */
 package br.uece.lotus.tcg.dataCoverage;
 
+import br.uece.lotus.Transition;
 import java.util.Arrays;
 import java.util.List;
 
@@ -13,7 +14,7 @@ import java.util.List;
  * @author Gabriel
  */
 public final class ComparatorUtils {
-
+    
     List<String> operators = Arrays.asList("==", "!=", ">", "<", ">=", "<=");
 
     /**
@@ -51,7 +52,7 @@ public final class ComparatorUtils {
         }
         return result;
     }
-
+    
     public String getGuardName(String guard) {
         String result = "Você digitou uma operação inválida.";
         for (String operator : operators) {
@@ -63,7 +64,7 @@ public final class ComparatorUtils {
         }
         return result;
     }
-
+    
     private String getGuardValue(String guard) {
         String result = "Você digitou uma operação inválida.";
         for (String operator : operators) {
@@ -75,11 +76,11 @@ public final class ComparatorUtils {
         }
         return result;
     }
-
+    
     public String getGuardByName(String guardName, String value, List<String> guardList) {
         for (String guard : guardList) {
             if (getGuardName(guard).equals(guardName)) {
-                if(compare(guard, value)){
+                if (compare(guard, value)) {
                     System.err.println("****Guarda escolhida: " + guard);
                     return guard;
                 }
@@ -87,4 +88,24 @@ public final class ComparatorUtils {
         }
         return null;
     }
+    
+    boolean isExpectedOutput(Transition transition, String expectedOutput) {
+        
+        String onlyStates = expectedOutput.replaceAll("[a-zA-Z]+", "");
+        String[] statesNumber = onlyStates.split("-");
+        String source = statesNumber[0].trim();
+        String destiny = statesNumber[1].trim();
+        
+        expectedOutput = expectedOutput.replaceAll("[^a-zA-Z]+", "");
+        
+        if (transition.getLabel().equals(expectedOutput)
+            && transition.getSource().getLabel().equals(source)
+            && transition.getDestiny().getLabel().equals(destiny)) {
+            return  true;
+        } else{
+            return false;
+        }
+        
+    }
+    
 }

@@ -7,12 +7,7 @@ package br.uece.lotus.tcg.dataCoverage;
 
 import br.uece.lotus.Component;
 import br.uece.lotus.Transition;
-import br.uece.lotus.tcg.TestBundleBuilder;
 import br.uece.lotus.tcg.generation.generator.OneLoopPath;
-import br.uece.lotus.tcg.generation.generator.PathGenAllOneLoop;
-import br.uece.lotus.tcg.struct.LtsInfo;
-import br.uece.lotus.tcg.struct.PathSet;
-import br.uece.lotus.tcg.struct.TestBundle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +31,7 @@ public class DataCoverage {
         if (AllPathList != null) {
             for (List<Transition> path : AllPathList) {
                 for (Transition transition : path) {
-                    if (transition.getLabel().equals(expectedOutput)) {
+                    if (new ComparatorUtils().isExpectedOutput(transition,expectedOutput)) {
                         resultsList.add(path);
                         break;
                     }
@@ -55,7 +50,7 @@ public class DataCoverage {
             System.err.println("expectedOutput: " + expectedOutput);
 
             for (Transition transition : transitionList) {
-                if (!transition.getLabel().equals(expectedOutput)) {
+                if (!new ComparatorUtils().isExpectedOutput(transition,expectedOutput)) {
                     if (transition.getGuard() == null || columnDataGuardList.contains(transition.getGuard())) {
                         coveragedPath.add(transition.getLabel());
                     } else {
